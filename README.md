@@ -2,7 +2,7 @@
 
 Sending and receiving SMSs with Ruby through pluggable backends.
 
-**Supported Ruby versions: 1.8.7 or higher**
+**Supported Ruby versions: 1.9 or higher**
 
 Licensed under the **MIT** license, see LICENSE for more information.
 
