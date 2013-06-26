@@ -28,11 +28,11 @@ module Cellular
     end
 
     def save(options)
-      raise NotImplementerError
+      raise NotImplementedError
     end
 
     def receive(options)
-      raise NotImplementerError
+      raise NotImplementedError
     end
 
     def delivered?
