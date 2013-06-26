@@ -58,12 +58,10 @@ module Cellular
           }
         )
 
-        return result
-
         if result.success?
-          [ result.error_number, 'Message is received and is being processed.' ]
+          [ result.body[:error_number], 'Message is received and is being processed.' ]
         else
-          [ result.error_number, result.error_message ]
+          [ result.body[:error_number], result.body[:error_message] ]
         end
       end
 
