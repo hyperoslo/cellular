@@ -20,4 +20,6 @@ Gem::Specification.new do |gem|
   gem.require_paths = ['lib']
 
   gem.add_dependency 'savon'
+
+  gem.add_development_dependency 'pry'
 end
