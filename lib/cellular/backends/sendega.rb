@@ -1,4 +1,3 @@
-require 'cellular/settings'
 require 'savon'
 
 module Cellular
@@ -38,15 +37,15 @@ module Cellular
         client = Savon.client wsdl: GATEWAY_URL
 
         result = client.call(:send, message: {
-            username: Cellular::GATE_USERNAME,
-            password: Cellular::GATE_PASSWORD,
+            username: Cellular.config.username,
+            password: Cellular.config.password,
             sender: options[:sender],
             destination: options[:recipient],
             pricegroup: options[:price] || 0, # default price to 0
             contentTypeID: 1,
             contentHeader: "",
             content: options[:message],
-            dlrUrl: Cellular::DELIVERY_URL,
+            dlrUrl: Cellular.config.delivery_url,
             ageLimit: 0,
             extID: "",
             sendDate: "",
