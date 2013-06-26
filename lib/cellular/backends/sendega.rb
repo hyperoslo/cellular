@@ -42,7 +42,7 @@ module Cellular
             password: Cellular::GATE_PASSWORD,
             sender: options[:sender],
             destination: options[:recipient],
-            pricegroup: options[:price],
+            pricegroup: options[:price] || 0, # default price to 0
             contentTypeID: 1,
             contentHeader: "",
             content: options[:message],
