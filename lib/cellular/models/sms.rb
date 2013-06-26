@@ -1,12 +1,10 @@
-require 'cellular/backends/sendega'
-
 module Cellular
   class SMS
 
     attr_accessor :recipient, :sender, :mesage, :price, :country
 
     def initialize(options = {})
-      @backend = Backends::Sendega
+      @backend = Cellular.config.backend
 
       @recipient = options[:recipient]
       @sender = options[:sender]
