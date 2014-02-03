@@ -1,6 +1,6 @@
 Licensed under the **MIT** license
 
-> Copyright (c) 2013 Hyper
+> Copyright (c) 2014 Hyper
 >
 > Permission is hereby granted, free of charge, to any person obtaining
 > a copy of this software and associated documentation files (the
