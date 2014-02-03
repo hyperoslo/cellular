@@ -8,8 +8,8 @@ require 'cellular/version'
 Gem::Specification.new do |gem|
   gem.name          = 'cellular'
   gem.version       = Cellular::VERSION
-  gem.authors       = ['Tim Kurvers']
-  gem.email         = ['tim@moonsphere.net']
+  gem.authors       = ['Sindre Moen', 'Tim Kurvers']
+  gem.email         = ['johannes@hyper.no']
   gem.description   = %q{Sending and receiving SMSs through pluggable backends}
   gem.summary       = %q{Sending and receiving SMSs through pluggable backends}
   gem.homepage      = ''
