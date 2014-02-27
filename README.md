@@ -1,5 +1,9 @@
 # Cellular
 
+[![Gem Version](https://badge.fury.io/rb/cellular.png)](https://rubygems.org/gems/cellular)
+[![Build Status](https://secure.travis-ci.org/hyperoslo/cellular.png?branch=master)](https://travis-ci.org/hyperoslo/cellular)
+[![Coverage Status](https://coveralls.io/repos/hyperoslo/cellular/badge.png?branch=master)](https://coveralls.io/r/hyperoslo/cellular)
+
 Sending and receiving SMSs with Ruby through pluggable backends.
 
 **Supported Ruby versions: 1.9 or higher**
