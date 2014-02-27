@@ -24,7 +24,36 @@ Or install it yourself as:
 
 ## Usage
 
-Usage instructions to follow shortly.
+### Configuration
+
+```ruby
+Cellular.configure do |config|
+  config.username = 'username'
+  config.password = 'password'
+  config.backend  = Cellular::Backends::Sendega
+end
+```
+
+
+### Available Backends
+
+* Sendega (http://sendega.com/)
+
+
+### Sending SMSs
+
+The options supported may differ between backends.
+
+```ruby
+sms = Cellular::SMS.new(
+  recipient: "47xxxxxxxx",
+  sender: 'Custom sender',
+  country: 'NO',
+  message: 'This is an SMS message'
+)
+
+sms.deliver
+```
 
 
 ## Contributing
