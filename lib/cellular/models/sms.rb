@@ -27,11 +27,11 @@ module Cellular
       @delivered = true
     end
 
-    def save(options)
+    def save(options = {})
       raise NotImplementedError
     end
 
-    def receive(options)
+    def receive(options = {})
       raise NotImplementedError
     end
 
