@@ -6,7 +6,7 @@ module Cellular
 
       GATEWAY_URL = 'https://smsc.sendega.com/Content.asmx?WSDL'
 
-      def self.deliver(options = {})
+      def self.deliver(options = {}, savon_options = {})
         # Send an SMS and return its initial delivery status code.
         #
         # Delivery status codes:
@@ -34,7 +34,9 @@ module Cellular
         # See Gate API Documentation:
         # http://www.sendega.no/downloads/Sendega%20API%20documentation%20v2.0.pdf
 
-        client = Savon.client wsdl: GATEWAY_URL
+        savon_options[:wsdl] = GATEWAY_URL
+
+        client = Savon.client savon_options
 
         result = client.call(:send, message: {
             username: Cellular.config.username,
