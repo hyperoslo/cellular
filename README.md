@@ -2,6 +2,8 @@
 
 [![Gem Version](https://badge.fury.io/rb/cellular.png)](https://rubygems.org/gems/cellular)
 [![Build Status](https://secure.travis-ci.org/hyperoslo/cellular.png?branch=master)](https://travis-ci.org/hyperoslo/cellular)
+[![Dependency Status](https://gemnasium.com/hyperoslo/cellular.png)](https://gemnasium.com/hyperoslo/cellular)
+[![Code Climate](https://codeclimate.com/github/hyperoslo/cellular.png)](https://codeclimate.com/github/hyperoslo/cellular)
 [![Coverage Status](https://coveralls.io/repos/hyperoslo/cellular/badge.png?branch=master)](https://coveralls.io/r/hyperoslo/cellular)
 
 Sending and receiving SMSs with Ruby through pluggable backends.
