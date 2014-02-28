@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <soap:Body>
+    <SendResponse xmlns="http://smsc.sendega.com/Content">
+      <SendResult>
+        <MessageID>00000000-0000-0000-0000-000000000000</MessageID>
+        <ErrorMessage>Not validated - Username and password does not match (e)</ErrorMessage>
+        <ErrorNumber>9001</ErrorNumber>
+        <Success>false</Success>
+      </SendResult>
+    </SendResponse>
+  </soap:Body>
+</soap:Envelope>

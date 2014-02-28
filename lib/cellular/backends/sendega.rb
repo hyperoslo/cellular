@@ -59,10 +59,18 @@ module Cellular
           }
         )
 
-        if result.success?
-          [ result.body[:error_number], 'Message is received and is being processed.' ]
+        body = result.body[:send_response][:send_result]
+
+        if body[:success]
+          [
+            body[:error_number].to_i,
+            'Message is received and is being processed.'
+          ]
         else
-          [ result.body[:error_number], result.body[:error_message] ]
+          [
+            body[:error_number].to_i,
+            body[:error_message]
+          ]
         end
       end
 
