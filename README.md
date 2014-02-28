@@ -50,7 +50,7 @@ The options supported may differ between backends.
 
 ```ruby
 sms = Cellular::SMS.new(
-  recipient: "47xxxxxxxx",
+  recipient: '47xxxxxxxx',
   sender: 'Custom sender',
   country: 'NO',
   message: 'This is an SMS message'
