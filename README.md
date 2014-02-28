@@ -43,6 +43,7 @@ end
 
 ### Available Backends
 
+* CoolSMS (http://coolsms.com/)
 * Sendega (http://sendega.com/)
 
 

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE smsc SYSTEM "https://sms.coolsmsc.dk/dtd/smsc.dtd">
+<smsc version="1.0">
+  <status>failure</status>
+  <result>Access denied.</result>
+</smsc>
