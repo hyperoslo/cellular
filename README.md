@@ -37,6 +37,7 @@ Cellular.configure do |config|
   config.username = 'username'
   config.password = 'password'
   config.backend  = Cellular::Backends::Sendega
+  config.sender = 'Default custom sender'
 end
 ```
 
