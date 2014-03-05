@@ -11,4 +11,11 @@ describe Cellular::Configuration do
   it { should respond_to :backend= }
   it { should respond_to :backend }
 
+  it { should respond_to :price= }
+  it { should respond_to :price }
+  it { should respond_to :country_code= }
+  it { should respond_to :country_code }
+  it { should respond_to :sender= }
+  it { should respond_to :sender }
+
 end

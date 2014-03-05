@@ -6,7 +6,7 @@ describe Cellular::SMS do
   let(:sender)    { 'Custom sender' }
   let(:message)   { 'This is an SMS message' }
   let(:price)     { 100 }
-  let(:country)   { 'NO '}
+  let(:country)   { 'NO'}
 
   subject do
     described_class.new(
@@ -30,6 +30,36 @@ describe Cellular::SMS do
     its(:country)   { should eq country }
 
     it { should_not be_delivered }
+
+    context 'when sender omitted' do
+      before do
+        Cellular.config.sender = 'Hyper'
+      end
+
+      subject { described_class.new }
+
+      its(:sender) { should eq 'Hyper' }
+    end
+
+    context 'when price omitted' do
+      before do
+        Cellular.config.price = 5
+      end
+
+      subject { described_class.new }
+
+      its(:price) { should eq 5 }
+    end
+
+    context 'when country omitted' do
+      before do
+        Cellular.config.country_code = 'NL'
+      end
+
+      subject { described_class.new }
+
+      its(:country) { should eq 'NL' }
+    end
   end
 
   describe '#deliver' do

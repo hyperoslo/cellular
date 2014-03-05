@@ -7,10 +7,10 @@ module Cellular
       @backend = Cellular.config.backend
 
       @recipient = options[:recipient]
-      @sender = options[:sender]
+      @sender = options[:sender] || Cellular.config.sender
       @message = options[:message]
-      @price = options[:price]
-      @country = options[:country]
+      @price = options[:price] || Cellular.config.price
+      @country = options[:country] || Cellular.config.country_code
 
       @delivered = false
     end
