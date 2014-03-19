@@ -46,6 +46,7 @@ end
 
 * CoolSMS (http://coolsms.com/)
 * Sendega (http://sendega.com/)
+* Log
 
 
 ### Sending SMSs
