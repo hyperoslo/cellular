@@ -29,9 +29,26 @@ describe Cellular::Backends::Log do
   end
 
   describe '::deliver' do
+    let(:deliveries) { Cellular.deliveries }
+    let(:delivery)   { deliveries.first }
+
     it 'logs the message' do
       expect(STDOUT).to receive(:puts)
       described_class.deliver(options, savon_options)
+    end
+
+    before do
+      Cellular.deliveries.clear
+    end
+
+    it 'appends the message to deliveries' do
+      described_class.deliver message: 'This is a message'
+      expect(deliveries.count).to eq 1
+    end
+
+    it 'stores the message of the message' do
+      described_class.deliver message: 'This is a message'
+      expect(delivery).to eq 'This is a message'
     end
   end
 

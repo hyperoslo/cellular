@@ -4,8 +4,10 @@ require 'cellular/models/sms'
 require 'cellular/backends'
 
 module Cellular
+  @deliveries = []
 
   class << self
+    attr_accessor :deliveries
     attr_accessor :config
 
     def configure
