@@ -1,8 +1,8 @@
 module Cellular
   module Backends
-    class Log
+    class Test
       def self.deliver(options = {}, savon_options = {})
-        STDOUT.puts options[:message]
+        Cellular.deliveries << options[:message]
       end
 
       def self.receive(data)
