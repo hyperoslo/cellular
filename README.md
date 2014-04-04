@@ -1,10 +1,11 @@
 # Cellular
 
-[![Gem Version](https://badge.fury.io/rb/cellular.png)](https://rubygems.org/gems/cellular)
-[![Build Status](https://secure.travis-ci.org/hyperoslo/cellular.png?branch=master)](https://travis-ci.org/hyperoslo/cellular)
-[![Dependency Status](https://gemnasium.com/hyperoslo/cellular.png)](https://gemnasium.com/hyperoslo/cellular)
-[![Code Climate](https://codeclimate.com/github/hyperoslo/cellular.png)](https://codeclimate.com/github/hyperoslo/cellular)
-[![Coverage Status](https://coveralls.io/repos/hyperoslo/cellular/badge.png?branch=master)](https://coveralls.io/r/hyperoslo/cellular)
+[![Gem Version](https://img.shields.io/gem/v/cellular.svg)](https://rubygems.org/gems/cellular)
+[![Build Status](https://img.shields.io/travis/hyperoslo/cellular.svg)](https://travis-ci.org/hyperoslo/cellular)
+[![Dependency Status](https://img.shields.io/coveralls/hyperoslo/cellular.svg)](https://gemnasium.com/hyperoslo/cellular)
+[![Dependency Status](https://img.shields.io/gemnasium/hyperoslo/cellular.svg)](https://gemnasium.com/hyperoslo/cellular)
+[![Code Climate](https://img.shields.io/codeclimate/github/hyperoslo/cellular.svg)](https://codeclimate.com/github/hyperoslo/cellular)
+[![Coverage Status](https://img.shields.io/coveralls/hyperoslo/cellular.svg)](https://coveralls.io/r/hyperoslo/cellular)
 
 Sending and receiving SMSs with Ruby through pluggable backends.
 
