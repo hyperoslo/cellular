@@ -54,7 +54,7 @@ end
 The options supported may differ between backends.
 
 ```ruby
-sms = Cellular::SMS.new(
+sms = Cellular::SMS.new (
   recipient: '47xxxxxxxx',
   sender: 'Custom sender',
   message: 'This is an SMS message'
