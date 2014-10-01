@@ -63,6 +63,26 @@ sms = Cellular::SMS.new(
 sms.deliver
 ```
 
+You can also use Sidekiq to send texts, which is great if you're in a Rails app
+and is concerned that it might time out or something. Actually, if you have
+Sidekiq at your disposal, it's a great idea anyway! To use it, just call
+`deliver_later` instead of `deliver` on the SMS object:
+
+```ruby
+sms = Cellular::SMS.new(
+  recipient: '47xxxxxxxx',
+  sender: 'Custom sender',
+  message: 'This is an SMS message'
+)
+
+sms.deliver_later
+```
+
+This will create a Sidekiq job for you on the **cellular** queue, so make sure
+that Sidekiq is processing that queue.
+
+[sidekiq]: http://sidekiq.org
+
 
 ## Contributing
 
