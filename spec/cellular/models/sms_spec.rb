@@ -79,6 +79,25 @@ describe Cellular::SMS do
     end
   end
 
+  describe "#deliver_later" do
+    it "calls out to the Sidekiq job to send the SMS" do
+      sms_options = {
+        receiver: "12345678",
+        message: "Test SMS"
+      }
+
+      expect(Cellular::Jobs::AsyncMessenger)
+        .to receive(:perform_async)
+        .with sms_options
+
+      sms = Cellular::SMS.new sms_options
+
+      allow(sms).to receive(:options).and_return sms_options
+
+      sms.deliver_later
+    end
+  end
+
   describe '#save' do
     it 'has not been implemented yet' do
       expect do
