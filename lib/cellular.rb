@@ -2,11 +2,7 @@ require 'cellular/version'
 require 'cellular/configuration'
 require 'cellular/models/sms'
 require 'cellular/backends'
-
-begin
-  require "sidekiq"
-rescue LoadError
-end
+require 'cellular/jobs'
 
 module Cellular
   @deliveries = []
