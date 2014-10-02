@@ -64,7 +64,7 @@ sms.deliver
 ```
 
 You can also use Sidekiq to send texts, which is great if you're in a Rails app
-and is concerned that it might time out or something. Actually, if you have
+and are concerned that it might time out or something. Actually, if you have
 Sidekiq at your disposal, it's a great idea anyway! To use it, just call
 `deliver_later` instead of `deliver` on the SMS object:
 
