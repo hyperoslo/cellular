@@ -38,6 +38,7 @@ Cellular.configure do |config|
   config.password = 'password'
   config.backend  = Cellular::Backends::Sendega
   config.sender = 'Default custom sender'
+  config.country_code = 'NO'
 end
 ```
 
