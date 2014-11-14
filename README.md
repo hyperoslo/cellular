@@ -59,7 +59,9 @@ The options supported may differ between backends.
 sms = Cellular::SMS.new(
   recipient: '47xxxxxxxx',
   sender: 'Custom sender',
-  message: 'This is an SMS message'
+  message: 'This is an SMS message',
+  price: 0,
+  country_code: 'NO' # defaults to Cellular.config.country_code
 )
 
 sms.deliver
