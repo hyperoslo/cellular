@@ -32,7 +32,7 @@ module Cellular
         # 9007 -- Demo account empty
         #
         # See Gate API Documentation:
-        # http://www.sendega.no/downloads/Sendega%20API%20documentation%20v2.0.pdf
+        # http://controlpanel.sendega.no/Content/Sendega%20-%20API%20documentation%20v2.3.pdf
 
         savon_options[:wsdl] = GATEWAY_URL
 
