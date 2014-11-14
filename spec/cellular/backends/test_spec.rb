@@ -16,11 +16,6 @@ describe Cellular::Backends::Test do
       price: price
     }
   }
-  let(:savon_options) {
-    {
-      log: false
-    }
-  }
 
   before do
     Cellular.config.username = 'username'
