@@ -47,7 +47,8 @@ end
 
 * [CoolSMS](http://coolsms.com/)
 * [Sendega](http://sendega.com/)
-* Log
+* Log (logs to `$stdout`)
+* Test (adds messages to `Cellular.deliveries`)
 
 
 ### Sending SMSs
