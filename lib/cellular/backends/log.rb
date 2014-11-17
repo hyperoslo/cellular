@@ -1,7 +1,7 @@
 module Cellular
   module Backends
     class Log
-      def self.deliver(options = {}, savon_options = {})
+      def self.deliver(options = {})
         $stdout.puts options[:message]
       end
 

@@ -1,7 +1,7 @@
 module Cellular
   module Backends
     class Test
-      def self.deliver(options = {}, savon_options = {})
+      def self.deliver(options = {})
         Cellular.deliveries << options[:message]
       end
 

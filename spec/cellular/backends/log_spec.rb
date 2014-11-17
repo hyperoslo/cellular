@@ -16,11 +16,6 @@ describe Cellular::Backends::Log do
       price: price
     }
   }
-  let(:savon_options) {
-    {
-      log: false
-    }
-  }
 
   before do
     Cellular.config.username = 'username'
@@ -33,7 +28,7 @@ describe Cellular::Backends::Log do
 
     it 'logs the message' do
       expect(STDOUT).to receive(:puts)
-      described_class.deliver(options, savon_options)
+      described_class.deliver(options)
     end
   end
 
