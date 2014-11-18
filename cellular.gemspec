@@ -30,7 +30,6 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'webmock', '~> 1.19'
 
   gem.add_development_dependency 'sidekiq', '~> 3.2'
-
   gem.add_development_dependency 'rspec-rails', '~> 2.99'
 
   gem.add_development_dependency 'coveralls', '~> 0.7'
