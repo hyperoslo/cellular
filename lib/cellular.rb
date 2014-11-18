@@ -2,6 +2,7 @@ require 'cellular/version'
 require 'cellular/configuration'
 require 'cellular/models/sms'
 require 'cellular/backends'
+require 'cellular/jobs'
 
 module Cellular
   @deliveries = []
