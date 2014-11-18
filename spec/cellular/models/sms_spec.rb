@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe Cellular::SMS do
 
-  let(:recipient) { '47xxxxxxxx' }
-  let(:sender)    { 'Custom sender' }
-  let(:message)   { 'This is an SMS message' }
-  let(:price)     { 100 }
-  let(:country)   { 'NO'}
+  let(:recipient)    { '47xxxxxxxx' }
+  let(:sender)       { 'Custom sender' }
+  let(:message)      { 'This is an SMS message' }
+  let(:price)        { 100 }
+  let(:country_code) { 'NO'}
 
   subject do
     described_class.new(
@@ -14,7 +14,7 @@ describe Cellular::SMS do
       sender: sender,
       message: message,
       price: price,
-      country: country
+      country_code: country_code
     )
   end
 
@@ -23,11 +23,11 @@ describe Cellular::SMS do
   end
 
   describe '#initialize' do
-    its(:recipient) { should eq recipient }
-    its(:sender)    { should eq sender }
-    its(:message)   { should eq message }
-    its(:price)     { should eq price }
-    its(:country)   { should eq country }
+    its(:recipient)    { should eq recipient }
+    its(:sender)       { should eq sender }
+    its(:message)      { should eq message }
+    its(:price)        { should eq price }
+    its(:country_code) { should eq country_code }
 
     it { should_not be_delivered }
 
@@ -58,7 +58,7 @@ describe Cellular::SMS do
 
       subject { described_class.new }
 
-      its(:country) { should eq 'NL' }
+      its(:country_code) { should eq 'NL' }
     end
   end
 
@@ -68,7 +68,7 @@ describe Cellular::SMS do
         recipient: recipient,
         sender: sender,
         price: price,
-        country: country,
+        country_code: country_code,
         message: message
       )
     end
@@ -92,6 +92,31 @@ describe Cellular::SMS do
       expect do
         subject.receive
       end.to raise_error NotImplementedError
+    end
+  end
+
+  describe '#country' do
+    it 'issues a deprecation warning' do
+      expect(subject).to receive(:warn)
+      subject.country
+    end
+
+    it 'returns country_code' do
+      allow(subject).to receive(:warn)
+      expect(subject.country).to eq(subject.country_code)
+    end
+  end
+
+  describe '#country=' do
+    it 'issues a deprecation warning' do
+      expect(subject).to receive(:warn)
+      subject.country = 'Test'
+    end
+
+    it 'assigns country_code' do
+      allow(subject).to receive(:warn)
+      subject.country = 'Test'
+      expect(subject.country_code).to eq('Test')
     end
   end
 
