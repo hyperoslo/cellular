@@ -61,7 +61,7 @@ module Cellular
         sender: @sender,
         message: @message,
         price: @price,
-        country: @country
+        country_code: @country_code
       }
     end
 
