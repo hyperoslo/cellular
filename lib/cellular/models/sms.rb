@@ -1,7 +1,7 @@
 module Cellular
   class SMS
 
-    attr_accessor :recipient, :sender, :message, :price, :country
+    attr_accessor :recipient, :sender, :message, :price, :country_code
 
     def initialize(options = {})
       @backend = Cellular.config.backend
@@ -10,7 +10,7 @@ module Cellular
       @sender = options[:sender] || Cellular.config.sender
       @message = options[:message]
       @price = options[:price] || Cellular.config.price
-      @country = options[:country] || Cellular.config.country_code
+      @country_code = options[:country_code] || Cellular.config.country_code
 
       @delivered = false
     end
@@ -20,7 +20,7 @@ module Cellular
         recipient: @recipient,
         sender: @sender,
         price: @price,
-        country: @country,
+        country_code: @country_code,
         message: @message
       )
 
@@ -37,6 +37,16 @@ module Cellular
 
     def delivered?
       @delivered
+    end
+    
+    def country
+      warn "[DEPRECATION] 'country' is deprecated; use 'country_code' instead"
+      @country_code
+    end
+
+    def country=(country)
+      warn "[DEPRECATION] 'country' is deprecated; use 'country_code' instead"
+      @country_code = country
     end
 
   end
