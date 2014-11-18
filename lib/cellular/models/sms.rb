@@ -16,14 +16,7 @@ module Cellular
     end
 
     def deliver
-      @delivery_status, @delivery_message = @backend.deliver(
-        recipient: @recipient,
-        sender: @sender,
-        price: @price,
-        country_code: @country_code,
-        message: @message
-      )
-
+      @delivery_status, @delivery_message = @backend.deliver options
       @delivered = true
     end
 
