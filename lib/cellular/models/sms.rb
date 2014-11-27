@@ -24,6 +24,10 @@ module Cellular
       Cellular::Jobs::AsyncMessenger.perform_async options
     end
 
+    def deliver_at(timestamp)
+      Cellular::Jobs::AsyncMessenger.perform_at timestamp, options
+    end
+
     def save(options = {})
       raise NotImplementedError
     end
@@ -35,7 +39,7 @@ module Cellular
     def delivered?
       @delivered
     end
-    
+
     def country
       warn "[DEPRECATION] 'country' is deprecated; use 'country_code' instead"
       @country_code
