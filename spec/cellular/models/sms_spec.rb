@@ -98,6 +98,26 @@ describe Cellular::SMS do
     end
   end
 
+  describe "#deliver_at" do
+    it "makes Sidekiq schedule an SMS job" do
+      sms_options = {
+        receiver: "12345678",
+        message: "Test SMS"
+      }
+      timestamp = Time.now + 10800
+
+      expect(Cellular::Jobs::AsyncMessenger)
+        .to receive(:perform_at)
+        .with timestamp, sms_options
+
+      sms = Cellular::SMS.new sms_options
+
+      allow(sms).to receive(:options).and_return sms_options
+
+      sms.deliver_at timestamp
+    end
+  end
+
   describe '#save' do
     it 'has not been implemented yet' do
       expect do

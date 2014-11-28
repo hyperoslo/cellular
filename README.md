@@ -87,6 +87,20 @@ that Sidekiq is processing that queue.
 
 [sidekiq]: http://sidekiq.org
 
+#### Schedule SMSs
+
+Using Sidekiq, Cellular allows you to schedule the time when an SMS will be sent.
+Just call `deliver_at(timestamp)` on the SMS object:
+
+```ruby
+sms = Cellular::SMS.new(
+  recipient: '47xxxxxxxx',
+  sender: 'Custom sender',
+  message: 'This is an SMS message'
+)
+
+sms.deliver_at 3.hours.from_now
+```
 
 ## Contributing
 
