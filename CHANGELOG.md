@@ -2,14 +2,14 @@
 
 ### Next release
 
-- Add SMS#deliver_later for scheduled delivery through Sidekiq.
+- Add `SMS#deliver_at` for scheduled delivery through Sidekiq.
 
 
 ### v1.3.0 - November 18, 2014
 
 - Drop support for Ruby 1.9.
 - Log and test backends for development purposes.
-- Add SMS#deliver_later for asynchronous delivery through Sidekiq.
+- Add `SMS#deliver_later` for asynchronous delivery through Sidekiq.
 
 
 ### v1.2.0 - March 5, 2014
@@ -30,7 +30,7 @@
 
 ### v0.0.1 - August 27, 2013
 
-- Initial release with Sendega backend.
+- Initial release with Sendega backend support.
 
 
 ### v0.0.0 - May 8, 2013
