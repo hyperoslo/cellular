@@ -23,11 +23,11 @@ describe Cellular::SMS do
   end
 
   describe '#initialize' do
-    its(:recipient)    { should eq recipient }
-    its(:sender)       { should eq sender }
-    its(:message)      { should eq message }
-    its(:price)        { should eq price }
-    its(:country_code) { should eq country_code }
+    it{ expect(subject.recipient).to eq recipient }
+    it{ expect(subject.sender).to eq sender }
+    it{ expect(subject.message).to eq message }
+    it{ expect(subject.price).to eq price }
+    it{ expect(subject.country_code).to eq country_code }
 
     it { should_not be_delivered }
 
@@ -37,8 +37,7 @@ describe Cellular::SMS do
       end
 
       subject { described_class.new }
-
-      its(:sender) { should eq 'Hyper' }
+      it{ expect(subject.sender).to eq 'Hyper' }
     end
 
     context 'when price omitted' do
@@ -48,7 +47,7 @@ describe Cellular::SMS do
 
       subject { described_class.new }
 
-      its(:price) { should eq 5 }
+      it{ expect(subject.price).to be 5 }
     end
 
     context 'when country omitted' do
@@ -57,8 +56,7 @@ describe Cellular::SMS do
       end
 
       subject { described_class.new }
-
-      its(:country_code) { should eq 'NL' }
+      it{ expect(subject.country_code).to eq 'NL'}
     end
   end
 
