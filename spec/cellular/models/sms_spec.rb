@@ -7,9 +7,11 @@ describe Cellular::SMS do
   let(:message)      { 'This is an SMS message' }
   let(:price)        { 100 }
   let(:country_code) { 'NO'}
+  let(:recipients)   { nil }
 
   subject do
     described_class.new(
+      recipients: recipients,
       recipient: recipient,
       sender: sender,
       message: message,
@@ -63,6 +65,7 @@ describe Cellular::SMS do
   describe '#deliver' do
     before do
       expect(Cellular::Backends::Sendega).to receive(:deliver).with(
+        recipients: recipients,
         recipient: recipient,
         sender: sender,
         price: price,
