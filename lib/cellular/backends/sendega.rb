@@ -40,18 +40,7 @@ module Cellular
 
         result = client.call(:send, message: payload(options) )
         body = result.body[:send_response][:send_result]
-
-        if body[:success]
-          [
-            body[:error_number].to_i,
-            'Message is received and is being processed.'
-          ]
-        else
-          [
-            body[:error_number].to_i,
-            body[:error_message]
-          ]
-        end
+        map_response(body)
       end
 
       def self.receive(data)
@@ -83,6 +72,15 @@ module Cellular
           pid: 0,
           dcs: 0
         }.merge!(savon_config)
+      end
+
+      def self.map_response(_body)
+        msg = _body[:success] ?  success_message : _body[:error_message]
+        [ _body[:error_number].to_i, msg ]
+      end
+
+      def self.success_message
+        'Message is received and is being processed.'
       end
 
     end
