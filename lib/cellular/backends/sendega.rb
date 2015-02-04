@@ -38,27 +38,7 @@ module Cellular
 
         client = Savon.client savon_options
 
-        result = client.call(:send, message: {
-            username: Cellular.config.username,
-            password: Cellular.config.password,
-            sender: options[:sender],
-            destination: options[:recipient],
-            pricegroup: options[:price] || 0, # default price to 0
-            contentTypeID: 1,
-            contentHeader: '',
-            content: options[:message],
-            dlrUrl: Cellular.config.delivery_url,
-            ageLimit: 0,
-            extID: '',
-            sendDate: '',
-            refID: '',
-            priority: 0,
-            gwID: 0,
-            pid: 0,
-            dcs: 0
-          }
-        )
-
+        result = client.call(:send, message: payload(options) )
         body = result.body[:send_response][:send_result]
 
         if body[:success]
@@ -76,6 +56,33 @@ module Cellular
 
       def self.receive(data)
         raise NotImplementedError
+      end
+
+      def self.savon_config
+        {
+           username: Cellular.config.username,
+           password: Cellular.config.password,
+           dlrUrl: Cellular.config.delivery_url
+        }
+      end
+
+      def self.payload(options)
+       {
+          sender: options[:sender],
+          destination: options[:recipient],
+          pricegroup: options[:price] || 0, # default price to 0
+          contentTypeID: 1,
+          contentHeader: '',
+          content: options[:message],
+          ageLimit: 0,
+          extID: '',
+          sendDate: '',
+          refID: '',
+          priority: 0,
+          gwID: 0,
+          pid: 0,
+          dcs: 0
+        }.merge!(savon_config)
       end
 
     end
