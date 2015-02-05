@@ -38,7 +38,7 @@ module Cellular
         request_queue = {}
         client = Savon.client savon_options
 
-        receipients_batch(options).each_with_index do |batch, index|
+        recipients_batch(options).each_with_index do |batch, index|
           options[:batch] = batch
           result = client.call(:send, message: defaults_with(options))
 
@@ -94,11 +94,11 @@ module Cellular
         'Message is received and is being processed.'
       end
 
-      def self.receipients_batch(options)
-        if options[:receipients].blank?
+      def self.recipients_batch(options)
+        if options[:recipients].blank?
           [options[:recipient]]
         else
-          options[:receipients].each_slice(100).to_a.map{|x| x.join(',') }
+          options[:recipients].each_slice(100).to_a.map{|x| x.join(',') }
         end
       end
 

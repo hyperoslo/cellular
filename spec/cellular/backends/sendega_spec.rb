@@ -130,14 +130,14 @@ describe Cellular::Backends::Sendega do
     end
   end
 
-  describe '::receipients_batch' do
+  describe '::recipients_batch' do
     it 'should split recipients into arrays of 100 then join them with ,' do
-      check = described_class.receipients_batch({receipients:recipients}).length
+      check = described_class.recipients_batch({recipients:recipients}).length
       expect(check).to eq 3
     end
 
     it 'should put recipient into one array' do
-      check = described_class.receipients_batch({receipient:recipient}).length
+      check = described_class.recipients_batch({receipient:recipient}).length
       expect(check).to eq 1
     end
   end

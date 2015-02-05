@@ -10,7 +10,7 @@ module Cellular
       def self.deliver(options = {})
         request_queue = {}
 
-        receipients_batch(options).each_with_index do |recipient, index|
+        recipients_batch(options).each_with_index do |recipient, index|
           options[:batch] = recipient
           result = HTTParty.get(GATEWAY_URL, query: defaults_with(options) )
           request_queue[index] = {
@@ -48,11 +48,11 @@ module Cellular
         }.merge!(coolsms_config)
       end
 
-      def self.receipients_batch(options)
-        if options[:receipients].blank?
+      def self.recipients_batch(options)
+        if options[:recipients].blank?
           [options[:recipient]]
         else
-          options[:receipients]
+          options[:recipients]
         end
       end
 
