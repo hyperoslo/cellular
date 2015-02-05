@@ -11,7 +11,8 @@ module Cellular
         request_queue = {}
 
         receipients_batch(options).each_with_index do |recipient, index|
-          result = HTTParty.get(GATEWAY_URL, query: payload(options, recipient) )
+          options[:batch] = recipient
+          result = HTTParty.get(GATEWAY_URL, query: defaults_with(options) )
           request_queue[index] = {
             recipient: recipient,
             response: parse_response(result.parsed_response['smsc'])
@@ -36,10 +37,10 @@ module Cellular
         }
       end
 
-      def self.payload(options, recipient)
+      def self.defaults_with(options)
         {
           from: options[:sender],
-          to: options[:recipient],
+          to: options[:batch],
           message: options[:message],
           charset: 'utf-8',
           resulttype: 'xml',

@@ -39,7 +39,8 @@ module Cellular
         client = Savon.client savon_options
 
         receipients_batch(options).each_with_index do |batch, index|
-          result = client.call(:send, message: payload(options, batch))
+          options[:batch] = batch
+          result = client.call(:send, message: defaults_with(options))
 
           request_queue[index] = {
             batch: batch,
@@ -65,10 +66,10 @@ module Cellular
         }
       end
 
-      def self.payload(options, recipients)
+      def self.defaults_with(options)
        {
           sender: options[:sender],
-          destination: recipients,
+          destination: options[:batch],
           pricegroup: options[:price] || 0, # default price to 0
           contentTypeID: 1,
           contentHeader: '',

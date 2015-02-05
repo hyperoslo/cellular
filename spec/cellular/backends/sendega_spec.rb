@@ -112,9 +112,10 @@ describe Cellular::Backends::Sendega do
   end
 
 
-  describe '::payload' do
+  describe '::defaults_with' do
     it 'should return the whole payload' do
-      expect(described_class.payload(options, recipient)).to eq(payload)
+      options[:batch] = recipient
+      expect(described_class.defaults_with(options)).to eq(payload)
    end
   end
 
