@@ -35,13 +35,13 @@ module Cellular
         # http://controlpanel.sendega.no/Content/Sendega%20-%20API%20documentation%20v2.3.pdf
 
         savon_options[:wsdl] = GATEWAY_URL
-        request_que = {}
+        request_queue = {}
         client = Savon.client savon_options
 
         recipients_batch(options).each_with_index do |_batch, _index|
           result = client.call(:send, message: payload(options, _batch))
 
-          request_que[_index] = {
+          request_queue[_index] = {
             batch: _batch,
             result: result,
             body:result.body[:send_response][:send_result],
@@ -50,7 +50,7 @@ module Cellular
         end
 
         # for now just resturn first response
-        request_que[0][:response]
+        request_queue[0][:response]
       end
 
       def self.receive(data)

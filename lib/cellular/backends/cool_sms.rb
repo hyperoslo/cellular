@@ -8,18 +8,18 @@ module Cellular
       GATEWAY_URL = 'https://sms.coolsmsc.dk/'
 
       def self.deliver(options = {})
-        request_que = {}
+        request_queue = {}
 
         recipients_batch(options).each_with_index do |recipient, _index|
           result = HTTParty.get(GATEWAY_URL, query: payload(options, recipient) )
-          request_que[_index] = {
+          request_queue[_index] = {
             recipient: recipient,
             response: parse_response(result.parsed_response['smsc'])
           }
         end
 
         # return first response for now
-        request_que[0][:response]
+        request_queue[0][:response]
       end
 
       def self.parse_response(response)
