@@ -98,13 +98,13 @@ describe Cellular::Backends::CoolSMS do
     end
   end
 
-  describe '::recipients_batch' do
+  describe '::receipients_batch' do
     it 'should wrap recipient option into a array' do
-      expect(described_class.recipients_batch({recipient: recipient}))
+      expect(described_class.receipients_batch({recipient: recipient}))
         .to eq([recipient])
     end
     it 'should return recipients option as it is' do
-      expect(described_class.recipients_batch({receipients: [recipient,recipient]}))
+      expect(described_class.receipients_batch({receipients: [recipient,recipient]}))
         .to eq([recipient,recipient])
     end
   end
