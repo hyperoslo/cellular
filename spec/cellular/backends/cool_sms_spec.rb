@@ -94,9 +94,19 @@ describe Cellular::Backends::CoolSMS do
 
   describe 'payload' do
     it 'should return the whole query' do
-      expect(described_class.payload(options)).to eq(payload)
+      expect(described_class.payload(options, recipient: recipient)).to eq(payload)
     end
   end
 
+  describe 'recipients_batch' do
+    it 'should wrap recipient option into a array' do
+      expect(described_class.recipients_batch({recipient: recipient}))
+        .to eq([recipient])
+    end
+    it 'should return recipients option as it is' do
+      expect(described_class.recipients_batch({receipients: [recipient,recipient]}))
+        .to eq([recipient,recipient])
+    end
+  end
 
 end

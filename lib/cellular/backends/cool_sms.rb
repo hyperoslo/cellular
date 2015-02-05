@@ -8,8 +8,18 @@ module Cellular
       GATEWAY_URL = 'https://sms.coolsmsc.dk/'
 
       def self.deliver(options = {})
-        result = HTTParty.get(GATEWAY_URL, query: payload(options) )
-        parse_response(result.parsed_response['smsc'])
+        request_que = {}
+
+        recipients_batch(options).each_with_index do |recipient, _index|
+          result = HTTParty.get(GATEWAY_URL, query: payload(options, recipient) )
+          request_que[_index] = {
+            recipient: recipient,
+            response: parse_response(result.parsed_response['smsc'])
+          }
+        end
+
+        # return first response for now
+        request_que[0][:response]
       end
 
       def self.parse_response(response)
@@ -26,7 +36,7 @@ module Cellular
         }
       end
 
-      def self.payload(options)
+      def self.payload(options, recipient)
         {
           from: options[:sender],
           to: options[:recipient],
@@ -35,6 +45,14 @@ module Cellular
           resulttype: 'xml',
           lang: 'en'
         }.merge!(coolsms_config)
+      end
+
+      def self.recipients_batch(options)
+        if options[:receipients].blank?
+          [options[:recipient]]
+        else
+          options[:receipients]
+        end
       end
 
     end
