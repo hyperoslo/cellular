@@ -69,7 +69,7 @@ describe Cellular::Backends::CoolSMS do
     end
   end
 
-  describe 'parse_response' do
+  describe '::parse_response' do
     it 'should return the correct response' do
       message = ['success', 'The message was sent correctly.']
 
@@ -82,7 +82,7 @@ describe Cellular::Backends::CoolSMS do
     end
   end
 
-  describe 'coolsms_config' do
+  describe '::coolsms_config' do
     it 'should return the config for coolsms' do
       expect(described_class.coolsms_config).to eq(
         {
@@ -92,13 +92,13 @@ describe Cellular::Backends::CoolSMS do
     end
   end
 
-  describe 'payload' do
+  describe '::payload' do
     it 'should return the whole query' do
       expect(described_class.payload(options, recipient: recipient)).to eq(payload)
     end
   end
 
-  describe 'recipients_batch' do
+  describe '::recipients_batch' do
     it 'should wrap recipient option into a array' do
       expect(described_class.recipients_batch({recipient: recipient}))
         .to eq([recipient])

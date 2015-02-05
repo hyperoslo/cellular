@@ -103,7 +103,7 @@ describe Cellular::Backends::Sendega do
     end
   end
 
-  describe 'success_message' do
+  describe '::success_message' do
     it 'should return this message' do
       expect(
         described_class.success_message)
@@ -112,13 +112,13 @@ describe Cellular::Backends::Sendega do
   end
 
 
-  describe 'payload' do
+  describe '::payload' do
     it 'should return the whole payload' do
       expect(described_class.payload(options, recipient)).to eq(payload)
    end
   end
 
-  describe 'savon_config' do
+  describe '::savon_config' do
     it 'should return a hash with config' do
       expect(described_class.savon_config)
       .to eq({
@@ -129,7 +129,7 @@ describe Cellular::Backends::Sendega do
     end
   end
 
-  describe 'recipient_batch' do
+  describe '::recipient_batch' do
     it 'should split recipients into arrays of 100 then join them with ,' do
       check = described_class.recipients_batch({receipients:recipients}).length
       expect(check).to eq 3
