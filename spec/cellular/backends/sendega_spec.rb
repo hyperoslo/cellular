@@ -7,7 +7,7 @@ describe Cellular::Backends::Sendega do
   let(:message)   { 'This is an SMS message' }
   let(:price)     { 100 }
   let(:country)   { 'NO '}
-
+  let(:recipients){ (1..300).to_a.map!{|n| "47xxxxxxx#{n}"} }
   let(:options) {
     {
       recipient: recipient,
@@ -98,4 +98,59 @@ describe Cellular::Backends::Sendega do
     end
   end
 
+  describe 'success_message' do
+    it 'should return this message' do
+      expect(
+        described_class.success_message)
+      .to eq 'Message is received and is being processed.'
+    end
+  end
+
+
+  describe 'payload' do
+    it 'should return the whole payload' do
+      expect(described_class.payload(options, recipient)).to eq({
+          username: Cellular.config.username,
+          password: Cellular.config.password,
+          sender: sender,
+          destination: recipient,
+          pricegroup: price,
+          contentTypeID: 1,
+          contentHeader: '',
+          content: message,
+          dlrUrl: nil,
+          ageLimit: 0,
+          extID: '',
+          sendDate: '',
+          refID: '',
+          priority: 0,
+          gwID: 0,
+          pid: 0,
+          dcs: 0
+        })
+   end
+  end
+
+  describe 'savon_config' do
+    it 'should return a hash with config' do
+      expect(described_class.savon_config)
+      .to eq({
+           username: Cellular.config.username,
+           password: Cellular.config.password,
+           dlrUrl: Cellular.config.delivery_url
+        })
+    end
+  end
+
+  describe 'recipient_batch' do
+    it 'should split recipients into arrays of 100 then join them with ,' do
+      check = described_class.recipients_batch({receipients:recipients}).length
+      expect(check).to eq 3
+    end
+
+    it 'should put recipient into one array' do
+      check = described_class.recipients_batch({receipient:recipient}).length
+      expect(check).to eq 1
+    end
+  end
 end

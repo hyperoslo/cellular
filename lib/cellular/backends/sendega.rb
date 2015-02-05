@@ -35,12 +35,22 @@ module Cellular
         # http://controlpanel.sendega.no/Content/Sendega%20-%20API%20documentation%20v2.3.pdf
 
         savon_options[:wsdl] = GATEWAY_URL
-
+        request_que = {}
         client = Savon.client savon_options
 
-        result = client.call(:send, message: payload(options) )
-        body = result.body[:send_response][:send_result]
-        map_response(body)
+        recipients_batch(options).each_with_index do |_batch, _index|
+          result = client.call(:send, message: payload(options, _batch))
+
+          request_que[_index] = {
+            batch: _batch,
+            result: result,
+            body:result.body[:send_response][:send_result],
+            response: map_response(result.body[:send_response][:send_result])
+          }
+        end
+
+        # for now just resturn first response
+        request_que[0][:response]
       end
 
       def self.receive(data)
@@ -55,10 +65,10 @@ module Cellular
         }
       end
 
-      def self.payload(options)
+      def self.payload(options, recipients)
        {
           sender: options[:sender],
-          destination: options[:recipient],
+          destination: recipients,
           pricegroup: options[:price] || 0, # default price to 0
           contentTypeID: 1,
           contentHeader: '',
@@ -81,6 +91,14 @@ module Cellular
 
       def self.success_message
         'Message is received and is being processed.'
+      end
+
+      def self.recipients_batch(options)
+        if options[:receipients].blank?
+          [options[:recipient]]
+        else
+          options[:receipients].each_slice(100).to_a.map{|x| x.join(',') }
+        end
       end
 
     end
