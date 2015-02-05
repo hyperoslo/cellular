@@ -22,6 +22,28 @@ describe Cellular::Backends::Sendega do
     }
   }
 
+  let(:payload){
+    {
+      username: Cellular.config.username,
+      password: Cellular.config.password,
+      sender: sender,
+      destination: recipient,
+      pricegroup: price,
+      contentTypeID: 1,
+      contentHeader: '',
+      content: message,
+      dlrUrl: nil,
+      ageLimit: 0,
+      extID: '',
+      sendDate: '',
+      refID: '',
+      priority: 0,
+      gwID: 0,
+      pid: 0,
+      dcs: 0
+    }
+  }
+
   before do
     stub_request(:get, described_class::GATEWAY_URL).
       to_return body: fixture('backends/sendega/service.wsdl')
@@ -38,25 +60,8 @@ describe Cellular::Backends::Sendega do
 
       result = double(body: {send_response: {send_result: {}}})
 
-      expect(client).to receive(:call).with(:send, message: {
-        username: Cellular.config.username,
-        password: Cellular.config.password,
-        sender: sender,
-        destination: recipient,
-        pricegroup: price,
-        contentTypeID: 1,
-        contentHeader: '',
-        content: message,
-        dlrUrl: nil,
-        ageLimit: 0,
-        extID: '',
-        sendDate: '',
-        refID: '',
-        priority: 0,
-        gwID: 0,
-        pid: 0,
-        dcs: 0
-      }).and_return result
+      expect(client).to receive(:call).with(:send, message:
+      payload).and_return result
 
       described_class.deliver(options, savon_options)
     end
@@ -109,25 +114,7 @@ describe Cellular::Backends::Sendega do
 
   describe 'payload' do
     it 'should return the whole payload' do
-      expect(described_class.payload(options, recipient)).to eq({
-          username: Cellular.config.username,
-          password: Cellular.config.password,
-          sender: sender,
-          destination: recipient,
-          pricegroup: price,
-          contentTypeID: 1,
-          contentHeader: '',
-          content: message,
-          dlrUrl: nil,
-          ageLimit: 0,
-          extID: '',
-          sendDate: '',
-          refID: '',
-          priority: 0,
-          gwID: 0,
-          pid: 0,
-          dcs: 0
-        })
+      expect(described_class.payload(options, recipient)).to eq(payload)
    end
   end
 

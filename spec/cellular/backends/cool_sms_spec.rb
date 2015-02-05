@@ -14,6 +14,19 @@ describe Cellular::Backends::CoolSMS do
     }
   }
 
+  let(:payload){
+    {
+      username: 'username',
+      password: 'password',
+      from: sender,
+      to: recipient,
+      message: message,
+      charset: 'utf-8',
+      resulttype: 'xml',
+      lang: 'en'
+    }
+  }
+
   before do
     Cellular.config.username = 'username'
     Cellular.config.password = 'password'
@@ -26,16 +39,8 @@ describe Cellular::Backends::CoolSMS do
     end
 
     it 'uses HTTParty to deliver an SMS' do
-      expect(HTTParty).to receive(:get).with(described_class::GATEWAY_URL, query: {
-        username: 'username',
-        password: 'password',
-        from: sender,
-        to: recipient,
-        message: message,
-        charset: 'utf-8',
-        resulttype: 'xml',
-        lang: 'en'
-      }).and_call_original
+      expect(HTTParty).to receive(:get).with(described_class::GATEWAY_URL, query:
+        payload).and_call_original
 
       described_class.deliver(options)
     end
@@ -63,5 +68,35 @@ describe Cellular::Backends::CoolSMS do
       end
     end
   end
+
+  describe 'parse_response' do
+    it 'should return the correct response' do
+      message = ['success', 'The message was sent correctly.']
+
+      check = { 'status' => message[0], 'result' => message[1] }
+      second_check =  { 'status' => message[0],
+                        'message' => { 'result' => message[1] } }
+
+      expect(described_class.parse_response(check)).to eq(message)
+      expect(described_class.parse_response(second_check)).to eq(message)
+    end
+  end
+
+  describe 'coolsms_config' do
+    it 'should return the config for coolsms' do
+      expect(described_class.coolsms_config).to eq(
+        {
+          username: Cellular.config.username,
+          password: Cellular.config.password
+        })
+    end
+  end
+
+  describe 'payload' do
+    it 'should return the whole query' do
+      expect(described_class.payload(options)).to eq(payload)
+    end
+  end
+
 
 end
