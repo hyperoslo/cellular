@@ -2,13 +2,13 @@ require 'spec_helper'
 
 describe Cellular::Backends::Sendega do
 
-  let(:recipient) { '47xxxxxxxx' }
-  let(:sender)    { 'Custom sender' }
-  let(:message)   { 'This is an SMS message' }
-  let(:price)     { 100 }
-  let(:country)   { 'NO '}
-  let(:recipients){ (1..300).to_a.map!{|n| "47xxxxxxx#{n}"} }
-  let(:options) {
+  let(:recipient)  { '47xxxxxxxx' }
+  let(:sender)     { 'Custom sender' }
+  let(:message)    { 'This is an SMS message' }
+  let(:price)      { 100 }
+  let(:country)    { 'NO '}
+  let(:recipients) { (1..300).to_a.map!{|n| "47xxxxxxx#{n}"} }
+  let(:options)    {
     {
       recipient: recipient,
       sender: sender,
@@ -22,7 +22,7 @@ describe Cellular::Backends::Sendega do
     }
   }
 
-  let(:payload){
+  let(:payload) {
     {
       username: Cellular.config.username,
       password: Cellular.config.password,

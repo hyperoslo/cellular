@@ -14,7 +14,7 @@ describe Cellular::Backends::CoolSMS do
     }
   }
 
-  let(:payload){
+  let(:payload) {
     {
       username: 'username',
       password: 'password',
