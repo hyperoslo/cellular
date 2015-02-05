@@ -2,13 +2,13 @@ require 'spec_helper'
 
 describe Cellular::Backends::Sendega do
 
-  let(:recipient) { '47xxxxxxxx' }
-  let(:sender)    { 'Custom sender' }
-  let(:message)   { 'This is an SMS message' }
-  let(:price)     { 100 }
-  let(:country)   { 'NO '}
-
-  let(:options) {
+  let(:recipient)  { '47xxxxxxxx' }
+  let(:sender)     { 'Custom sender' }
+  let(:message)    { 'This is an SMS message' }
+  let(:price)      { 100 }
+  let(:country)    { 'NO '}
+  let(:recipients) { (1..300).to_a.map!{|n| "47xxxxxxx#{n}"} }
+  let(:options)    {
     {
       recipient: recipient,
       sender: sender,
@@ -19,6 +19,28 @@ describe Cellular::Backends::Sendega do
   let(:savon_options) {
     {
       log: false
+    }
+  }
+
+  let(:payload) {
+    {
+      username: Cellular.config.username,
+      password: Cellular.config.password,
+      sender: sender,
+      destination: recipient,
+      pricegroup: price,
+      contentTypeID: 1,
+      contentHeader: '',
+      content: message,
+      dlrUrl: nil,
+      ageLimit: 0,
+      extID: '',
+      sendDate: '',
+      refID: '',
+      priority: 0,
+      gwID: 0,
+      pid: 0,
+      dcs: 0
     }
   }
 
@@ -38,25 +60,8 @@ describe Cellular::Backends::Sendega do
 
       result = double(body: {send_response: {send_result: {}}})
 
-      expect(client).to receive(:call).with(:send, message: {
-        username: Cellular.config.username,
-        password: Cellular.config.password,
-        sender: sender,
-        destination: recipient,
-        pricegroup: price,
-        contentTypeID: 1,
-        contentHeader: '',
-        content: message,
-        dlrUrl: nil,
-        ageLimit: 0,
-        extID: '',
-        sendDate: '',
-        refID: '',
-        priority: 0,
-        gwID: 0,
-        pid: 0,
-        dcs: 0
-      }).and_return result
+      expect(client).to receive(:call).with(:send, message:
+      payload).and_return result
 
       described_class.deliver(options, savon_options)
     end
@@ -98,4 +103,42 @@ describe Cellular::Backends::Sendega do
     end
   end
 
+  describe '::success_message' do
+    it 'should return this message' do
+      expect(
+        described_class.success_message)
+      .to eq 'Message is received and is being processed.'
+    end
+  end
+
+
+  describe '::defaults_with' do
+    it 'should return the whole payload' do
+      options[:batch] = recipient
+      expect(described_class.defaults_with(options)).to eq(payload)
+   end
+  end
+
+  describe '::savon_config' do
+    it 'should return a hash with config' do
+      expect(described_class.savon_config)
+      .to eq({
+           username: Cellular.config.username,
+           password: Cellular.config.password,
+           dlrUrl: Cellular.config.delivery_url
+        })
+    end
+  end
+
+  describe '::recipients_batch' do
+    it 'should split recipients into arrays of 100 then join them with ,' do
+      check = described_class.recipients_batch({recipients:recipients}).length
+      expect(check).to eq 3
+    end
+
+    it 'should put recipient into one array' do
+      check = described_class.recipients_batch({receipient:recipient}).length
+      expect(check).to eq 1
+    end
+  end
 end

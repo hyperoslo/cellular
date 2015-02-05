@@ -35,47 +35,71 @@ module Cellular
         # http://controlpanel.sendega.no/Content/Sendega%20-%20API%20documentation%20v2.3.pdf
 
         savon_options[:wsdl] = GATEWAY_URL
-
+        request_queue = {}
         client = Savon.client savon_options
 
-        result = client.call(:send, message: {
-            username: Cellular.config.username,
-            password: Cellular.config.password,
-            sender: options[:sender],
-            destination: options[:recipient],
-            pricegroup: options[:price] || 0, # default price to 0
-            contentTypeID: 1,
-            contentHeader: '',
-            content: options[:message],
-            dlrUrl: Cellular.config.delivery_url,
-            ageLimit: 0,
-            extID: '',
-            sendDate: '',
-            refID: '',
-            priority: 0,
-            gwID: 0,
-            pid: 0,
-            dcs: 0
+        recipients_batch(options).each_with_index do |batch, index|
+          options[:batch] = batch
+          result = client.call(:send, message: defaults_with(options))
+
+          request_queue[index] = {
+            batch: batch,
+            result: result,
+            body:result.body[:send_response][:send_result],
+            response: map_response(result.body[:send_response][:send_result])
           }
-        )
-
-        body = result.body[:send_response][:send_result]
-
-        if body[:success]
-          [
-            body[:error_number].to_i,
-            'Message is received and is being processed.'
-          ]
-        else
-          [
-            body[:error_number].to_i,
-            body[:error_message]
-          ]
         end
+
+        # for now just resturn first response
+        request_queue[0][:response]
       end
 
       def self.receive(data)
         raise NotImplementedError
+      end
+
+      def self.savon_config
+        {
+           username: Cellular.config.username,
+           password: Cellular.config.password,
+           dlrUrl: Cellular.config.delivery_url
+        }
+      end
+
+      def self.defaults_with(options)
+       {
+          sender: options[:sender],
+          destination: options[:batch],
+          pricegroup: options[:price] || 0, # default price to 0
+          contentTypeID: 1,
+          contentHeader: '',
+          content: options[:message],
+          ageLimit: 0,
+          extID: '',
+          sendDate: '',
+          refID: '',
+          priority: 0,
+          gwID: 0,
+          pid: 0,
+          dcs: 0
+        }.merge!(savon_config)
+      end
+
+      def self.map_response(_body)
+        msg = _body[:success] ?  success_message : _body[:error_message]
+        [ _body[:error_number].to_i, msg ]
+      end
+
+      def self.success_message
+        'Message is received and is being processed.'
+      end
+
+      def self.recipients_batch(options)
+        if options[:recipients].blank?
+          [options[:recipient]]
+        else
+          options[:recipients].each_slice(100).to_a.map{|x| x.join(',') }
+        end
       end
 
     end

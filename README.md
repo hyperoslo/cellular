@@ -66,7 +66,19 @@ sms = Cellular::SMS.new(
 
 sms.deliver
 ```
+For use with multiple recipients in one request use:
 
+```ruby
+sms = Cellular::SMS.new(
+  recipients: ['47xxxxxxx1','47xxxxxxx2','47xxxxxxx3'],
+  sender: 'Custom sender',
+  message: 'This is an SMS message',
+  price: 0,
+  country_code: 'NO' # defaults to Cellular.config.country_code
+)
+
+sms.deliver
+```
 You can also use Sidekiq to send texts, which is great if you're in a Rails app
 and are concerned that it might time out or something. Actually, if you have
 Sidekiq at your disposal, it's a great idea anyway! To use it, just call
