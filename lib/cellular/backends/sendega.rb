@@ -38,11 +38,11 @@ module Cellular
         request_queue = {}
         client = Savon.client savon_options
 
-        recipients_batch(options).each_with_index do |_batch, _index|
-          result = client.call(:send, message: payload(options, _batch))
+        recipients_batch(options).each_with_index do |batch, index|
+          result = client.call(:send, message: payload(options, batch))
 
-          request_queue[_index] = {
-            batch: _batch,
+          request_queue[index] = {
+            batch: batch,
             result: result,
             body:result.body[:send_response][:send_result],
             response: map_response(result.body[:send_response][:send_result])

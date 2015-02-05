@@ -10,9 +10,9 @@ module Cellular
       def self.deliver(options = {})
         request_queue = {}
 
-        recipients_batch(options).each_with_index do |recipient, _index|
+        recipients_batch(options).each_with_index do |recipient, index|
           result = HTTParty.get(GATEWAY_URL, query: payload(options, recipient) )
-          request_queue[_index] = {
+          request_queue[index] = {
             recipient: recipient,
             response: parse_response(result.parsed_response['smsc'])
           }
