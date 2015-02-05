@@ -66,7 +66,7 @@ sms = Cellular::SMS.new(
 
 sms.deliver
 ```
-For use with multiple recipients in one request use
+For use with multiple recipients in one request use:
 
 ```ruby
 sms = Cellular::SMS.new(
