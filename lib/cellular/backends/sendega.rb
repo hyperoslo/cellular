@@ -2,7 +2,7 @@ require 'savon'
 
 module Cellular
   module Backends
-    class Sendega
+    class Sendega < Backend
 
       GATEWAY_URL = 'https://smsc.sendega.com/Content.asmx?WSDL'
 

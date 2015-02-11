@@ -2,7 +2,7 @@ require 'httparty'
 
 module Cellular
   module Backends
-    class CoolSMS
+    class CoolSMS < Backend
 
       # Documentation: http://www.coolsms.com/support/dokumentation/http-gateway.sms
       GATEWAY_URL = 'https://sms.coolsmsc.dk/'
