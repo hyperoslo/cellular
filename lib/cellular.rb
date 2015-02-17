@@ -5,6 +5,8 @@ require 'cellular/backends'
 require 'cellular/jobs'
 
 module Cellular
+  autoload :Logger, 'cellular/logger'
+
   @deliveries = []
 
   class << self

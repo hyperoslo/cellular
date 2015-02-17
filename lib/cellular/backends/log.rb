@@ -1,12 +1,8 @@
 module Cellular
   module Backends
-    class Log
+    class Log < Backend
       def self.deliver(options = {})
-        $stdout.puts options[:message]
-      end
-
-      def self.receive(data)
-        raise NotImplementedError
+        Cellular.config.logger.info options[:message]
       end
     end
   end
