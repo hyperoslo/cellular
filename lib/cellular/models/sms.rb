@@ -1,3 +1,5 @@
+require 'active_support/time'
+
 module Cellular
   class SMS
 
@@ -21,12 +23,13 @@ module Cellular
       @delivered = true
     end
 
-    def deliver_later
-      Cellular::Jobs::AsyncMessenger.perform_async options
+    def deliver_async(delivery_options = {})
+      Cellular::Jobs::AsyncJob.set(delivery_options).perform_later(options)
     end
 
     def deliver_at(timestamp)
-      Cellular::Jobs::AsyncMessenger.perform_at timestamp, options
+      warn "[DEPRECATION] 'deliver_at' is deprecated; use 'deliver_async' instead"
+      Cellular::Jobs::AsyncJob.set(wait_until: timestamp).perform_later(options)
     end
 
     def save(options = {})

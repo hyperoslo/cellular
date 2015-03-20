@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Cellular::Jobs::AsyncMessenger do
+describe Cellular::Jobs::AsyncJob do
   let(:sms_stub)    { double "SMS", deliver: true }
   let(:sms_options) { { "recipient" => "12345678", "text" => "Foo" } }
 

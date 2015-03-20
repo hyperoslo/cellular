@@ -1,7 +1,7 @@
-class Cellular::Jobs::AsyncMessenger
-  include Sidekiq::Worker
+require 'active_job'
 
-  sidekiq_options queue: :cellular, retry: false
+class Cellular::Jobs::AsyncJob < ActiveJob::Base
+  queue_as :cellular
 
   def perform(sms_options)
     sms_options.keys.each do |key|
@@ -11,5 +11,4 @@ class Cellular::Jobs::AsyncMessenger
     sms = Cellular::SMS.new sms_options
     sms.deliver
   end
-
 end

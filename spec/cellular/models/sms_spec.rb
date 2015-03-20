@@ -80,42 +80,24 @@ describe Cellular::SMS do
     end
   end
 
-  describe "#deliver_later" do
-    it "calls out to the Sidekiq job to send the SMS" do
+  describe "#deliver_async" do
+    it "makes ActiveJob schedule an SMS job" do
       sms_options = {
         receiver: "12345678",
         message: "Test SMS"
       }
+      wait = 100
 
-      expect(Cellular::Jobs::AsyncMessenger)
-        .to receive(:perform_async)
-        .with sms_options
-
-      sms = Cellular::SMS.new sms_options
-
-      allow(sms).to receive(:options).and_return sms_options
-
-      sms.deliver_later
-    end
-  end
-
-  describe "#deliver_at" do
-    it "makes Sidekiq schedule an SMS job" do
-      sms_options = {
-        receiver: "12345678",
-        message: "Test SMS"
-      }
-      timestamp = Time.now + 10800
-
-      expect(Cellular::Jobs::AsyncMessenger)
-        .to receive(:perform_at)
-        .with timestamp, sms_options
+      expect_any_instance_of(ActiveJob::ConfiguredJob)
+        .to receive(:perform_later)
+        .with(sms_options)
 
       sms = Cellular::SMS.new sms_options
 
+      allow(ActiveJob::Base).to receive(:queue_adapter).and_return ActiveJob::QueueAdapters::TestAdapter.new
       allow(sms).to receive(:options).and_return sms_options
 
-      sms.deliver_at timestamp
+      sms.deliver_async(wait: wait)
     end
   end
 
