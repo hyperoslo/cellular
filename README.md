@@ -101,12 +101,12 @@ sms.deliver_async
 ```
 
 This will create a delayed job for you on the **cellular** queue, so make sure
-that your queueu processor is running.
+that your queue processor is running.
 
 To override queue name, use **queue** option
 
 ```ruby
-sms.deliver_async(queueu: :urgent)
+sms.deliver_async(queue: :urgent)
 ```
 Using ActiveJob, Cellular allows you to schedule the time when an SMS will be sent.
 Just call `deliver_async(wait_until: timestamp)` or `deliver_async(wait: time)` on the SMS object:
