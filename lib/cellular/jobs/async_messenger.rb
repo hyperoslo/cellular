@@ -1,6 +1,6 @@
 require 'active_job'
 
-class Cellular::Jobs::AsyncJob < ActiveJob::Base
+class Cellular::Jobs::AsyncMessenger < ActiveJob::Base
   queue_as :cellular
 
   def perform(sms_options)

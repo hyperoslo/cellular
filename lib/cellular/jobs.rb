@@ -5,6 +5,6 @@ end
 
 module Cellular
   module Jobs
-    require 'cellular/jobs/async_job'
+    require 'cellular/jobs/async_messenger'
   end
 end

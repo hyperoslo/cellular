@@ -24,12 +24,12 @@ module Cellular
     end
 
     def deliver_async(delivery_options = {})
-      Cellular::Jobs::AsyncJob.set(delivery_options).perform_later(options)
+      Cellular::Jobs::AsyncMessenger.set(delivery_options).perform_later(options)
     end
 
     def deliver_at(timestamp)
       warn "[DEPRECATION] 'deliver_at' is deprecated; use 'deliver_async' instead"
-      Cellular::Jobs::AsyncJob.set(wait_until: timestamp).perform_later(options)
+      Cellular::Jobs::AsyncMessenger.set(wait_until: timestamp).perform_later(options)
     end
 
     def save(options = {})
