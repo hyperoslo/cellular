@@ -116,30 +116,4 @@ describe Cellular::SMS do
       end.to raise_error NotImplementedError
     end
   end
-
-  describe '#country' do
-    it 'issues a deprecation warning' do
-      expect(subject).to receive(:warn)
-      subject.country
-    end
-
-    it 'returns country_code' do
-      allow(subject).to receive(:warn)
-      expect(subject.country).to eq(subject.country_code)
-    end
-  end
-
-  describe '#country=' do
-    it 'issues a deprecation warning' do
-      expect(subject).to receive(:warn)
-      subject.country = 'Test'
-    end
-
-    it 'assigns country_code' do
-      allow(subject).to receive(:warn)
-      subject.country = 'Test'
-      expect(subject.country_code).to eq('Test')
-    end
-  end
-
 end
