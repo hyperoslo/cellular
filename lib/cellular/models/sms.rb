@@ -26,6 +26,7 @@ module Cellular
     def deliver_async(delivery_options = {})
       Cellular::Jobs::AsyncMessenger.set(delivery_options).perform_later(options)
     end
+    alias_method :deliver_later, :deliver_async
 
     def save(options = {})
       raise NotImplementedError
