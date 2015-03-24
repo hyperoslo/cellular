@@ -27,11 +27,6 @@ module Cellular
       Cellular::Jobs::AsyncMessenger.set(delivery_options).perform_later(options)
     end
 
-    def deliver_at(timestamp)
-      warn "[DEPRECATION] 'deliver_at' is deprecated; use 'deliver_async' instead"
-      Cellular::Jobs::AsyncMessenger.set(wait_until: timestamp).perform_later(options)
-    end
-
     def save(options = {})
       raise NotImplementedError
     end
@@ -42,16 +37,6 @@ module Cellular
 
     def delivered?
       @delivered
-    end
-
-    def country
-      warn "[DEPRECATION] 'country' is deprecated; use 'country_code' instead"
-      @country_code
-    end
-
-    def country=(country)
-      warn "[DEPRECATION] 'country' is deprecated; use 'country_code' instead"
-      @country_code = country
     end
 
     private
