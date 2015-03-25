@@ -21,6 +21,7 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency 'httparty', '~> 0.13.0'
   gem.add_dependency 'savon',    '~> 2.0'
+  gem.add_dependency 'rails',    '>= 4.2'
 
   gem.add_development_dependency 'pry', '~> 0.10'
 
@@ -29,7 +30,6 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rake', '~> 10.3'
   gem.add_development_dependency 'webmock', '~> 1.19'
 
-  gem.add_development_dependency 'sidekiq', '~> 3.2'
   gem.add_development_dependency 'rspec-rails', '~> 2.99'
 
   gem.add_development_dependency 'coveralls', '~> 0.7'

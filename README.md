@@ -42,6 +42,9 @@ Cellular.configure do |config|
 end
 ```
 
+Cellular uses Rails' [ActiveJob](http://edgeguides.rubyonrails.org/active_job_basics.html)
+interface to interact with queue backends. Read appropriate documentation to set up queue.
+
 
 ### Available Backends
 
@@ -79,10 +82,13 @@ sms = Cellular::SMS.new(
 
 sms.deliver
 ```
-You can also use Sidekiq to send texts, which is great if you're in a Rails app
-and are concerned that it might time out or something. Actually, if you have
-Sidekiq at your disposal, it's a great idea anyway! To use it, just call
-`deliver_later` instead of `deliver` on the SMS object:
+
+
+#### Delayed SMSs delivery
+
+You can also send texts asynchronously, which is great if you're in a Rails app
+and are concerned that it might time out or something. To use it, just call
+`deliver_async` instead of `deliver` on the SMS object:
 
 ```ruby
 sms = Cellular::SMS.new(
@@ -91,18 +97,19 @@ sms = Cellular::SMS.new(
   message: 'This is an SMS message'
 )
 
-sms.deliver_later
+sms.deliver_async
 ```
 
-This will create a Sidekiq job for you on the **cellular** queue, so make sure
-that Sidekiq is processing that queue.
+This will create a delayed job for you on the **cellular** queue, so make sure
+that your queue processor is running.
 
-[sidekiq]: http://sidekiq.org
+To override queue name, use **queue** option
 
-#### Schedule SMSs
-
-Using Sidekiq, Cellular allows you to schedule the time when an SMS will be sent.
-Just call `deliver_at(timestamp)` on the SMS object:
+```ruby
+sms.deliver_async(queue: :urgent)
+```
+Using ActiveJob, Cellular allows you to schedule the time when an SMS will be sent.
+Just call `deliver_async(wait_until: timestamp)` or `deliver_async(wait: time)` on the SMS object:
 
 ```ruby
 sms = Cellular::SMS.new(
@@ -111,7 +118,7 @@ sms = Cellular::SMS.new(
   message: 'This is an SMS message'
 )
 
-sms.deliver_at 3.hours.from_now
+sms.deliver_async(wait_until: Date.tomorrow.noon)
 ```
 
 ## Contributing
