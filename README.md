@@ -36,7 +36,7 @@ Or install it yourself as:
 Cellular.configure do |config|
   config.username = 'username'
   config.password = 'password'
-  config.backend  = Cellular::Backends::Sendega
+  config.backend = Cellular::Backends::Sendega
   config.sender = 'Default custom sender'
   config.country_code = 'NO'
 end
