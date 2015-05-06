@@ -9,7 +9,7 @@ Gem::Specification.new do |gem|
   gem.name          = 'cellular'
   gem.version       = Cellular::VERSION
   gem.authors       = ['Sindre Moen', 'Tim Kurvers']
-  gem.email         = ['johannes@hyper.no']
+  gem.email         = ['ruby@hyper.no']
   gem.description   = %q{Sending and receiving SMSs through pluggable backends}
   gem.summary       = %q{Sending and receiving SMSs through pluggable backends}
   gem.homepage      = ''
