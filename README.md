@@ -48,8 +48,9 @@ interface to interact with queue backends. Read appropriate documentation to set
 
 ### Available Backends
 
-* [CoolSMS](http://coolsms.com/)
-* [Sendega](http://sendega.com/)
+* [Cellular::Backends::CoolSMS](http://coolsms.com/)
+* [Cellular::Backends::Sendega](http://sendega.com/)
+* [Cellular::Backends::Twilio](http://twilio.com/)
 * Log (logs to `$stdout`)
 * Test (adds messages to `Cellular.deliveries`)
 
@@ -60,8 +61,8 @@ The options supported may differ between backends.
 
 ```ruby
 sms = Cellular::SMS.new(
-  recipient: '47xxxxxxxx',
-  sender: 'Custom sender',
+  recipient: '+47xxxxxxxx', # Valid international format
+  sender: '+370xxxxxxxx',
   message: 'This is an SMS message',
   price: 0,
   country_code: 'NO' # defaults to Cellular.config.country_code
@@ -73,8 +74,8 @@ For use with multiple recipients in one request use:
 
 ```ruby
 sms = Cellular::SMS.new(
-  recipients: ['47xxxxxxx1','47xxxxxxx2','47xxxxxxx3'],
-  sender: 'Custom sender',
+  recipients: ['+47xxxxxxx1','+47xxxxxxx2','+47xxxxxxx3'],
+  sender: '+370xxxxxxxx',
   message: 'This is an SMS message',
   price: 0,
   country_code: 'NO' # defaults to Cellular.config.country_code
@@ -92,8 +93,8 @@ and are concerned that it might time out or something. To use it, just call
 
 ```ruby
 sms = Cellular::SMS.new(
-  recipient: '47xxxxxxxx',
-  sender: 'Custom sender',
+  recipient: '+47xxxxxxxx',
+  sender: '+47xxxxxxxx',
   message: 'This is an SMS message'
 )
 
@@ -113,13 +114,20 @@ Just call `deliver_async(wait_until: timestamp)` or `deliver_async(wait: time)` 
 
 ```ruby
 sms = Cellular::SMS.new(
-  recipient: '47xxxxxxxx',
-  sender: 'Custom sender',
+  recipient: '+47xxxxxxxx',
+  sender: '+47xxxxxxxx',
   message: 'This is an SMS message'
 )
 
 sms.deliver_async(wait_until: Date.tomorrow.noon)
 ```
+
+## Troubleshooting
+
+If you are using Twilio as a backend, please make sure you add or (port)[https://www.twilio.com/help/faq/porting] a phone number to your account so, that you can use that as a sender option. You won't be able to send messages from any phone number unless you port it to Twilio. 
+
+Also, make sure phone numbers are in valid international format: 
+[`+47xxxxxx`, `+370xxxxx`]
 
 ## Contributing
 

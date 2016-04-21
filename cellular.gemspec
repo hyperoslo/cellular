@@ -25,8 +25,6 @@ Gem::Specification.new do |gem|
 
   gem.add_development_dependency 'pry', '~> 0.10'
 
-  gem.add_development_dependency 'guard', '~> 2.6'
-  gem.add_development_dependency 'guard-rspec', '~> 4.3'
   gem.add_development_dependency 'rake', '~> 10.3'
   gem.add_development_dependency 'webmock', '~> 1.19'
 

@@ -4,7 +4,7 @@ module Cellular
   class SMS
 
     attr_accessor :recipient, :sender, :message, :price, :country_code
-    attr_accessor :recipients
+    attr_accessor :recipients, :delivery_status, :delivery_message
     def initialize(options = {})
       @backend = Cellular.config.backend
 

@@ -3,26 +3,50 @@ require 'httparty'
 module Cellular
   module Backends
     class Twilio < Backend
-
       # Documentation: https://www.twilio.com/docs/api/rest
-      GATEWAY_URL = 'https://api.twilio.com/2010-04-01'
+      API_VERSION = '2010-04-01'
+      BASE_URL = 'https://api.twilio.com/'
+      API_URL = BASE_URL + API_VERSION
+
+      HTTP_HEADERS = {
+        'Accept' => 'application/json',
+        'Accept-Charset' => 'utf-8',
+        'User-Agent' => "cellular/#{Cellular::VERSION}" \
+        " (#{RUBY_ENGINE}/#{RUBY_PLATFORM}" \
+        " #{RUBY_VERSION}-p#{RUBY_PATCHLEVEL})"
+      }
 
       def self.deliver(options = {})
         request_queue = {}
-
         recipients_batch(options).each_with_index do |recipient, index|
           options[:batch] = recipient
-          result = HTTParty.post(
-            "#{GATEWAY_URL}/Accounts/#{twilio_config[:username]}/Messages",
+          request = HTTParty.post(
+            sms_url,
             body: payload(options),
-            basic_auth: twilio_config
-            )
+            basic_auth: twilio_config,
+            headers: HTTP_HEADERS
+          )
+
+          request_queue[index] = {
+            recipient: options[:batch],
+            response: parse_response(request)
+          }
         end
 
         # return first response for now
         request_queue[0][:response]
       end
 
+      def self.parse_response(response)
+        [
+          response.code,
+          response.message
+        ]
+      end
+
+      def self.sms_url
+        "#{API_URL}/Accounts/#{twilio_config[:username]}/Messages"
+      end
 
       def self.twilio_config
         {
@@ -33,9 +57,10 @@ module Cellular
 
       def self.payload(options)
         {
-          from: options[:sender],
-          to: options[:batch],
-          body: options[:message]
+          From: options[:sender],
+          To: options[:batch],
+          Body: options[:message],
+          MaxPrice: options[:price] || 0.50
         }
       end
 
