@@ -48,8 +48,9 @@ interface to interact with queue backends. Read appropriate documentation to set
 
 ### Available Backends
 
-* [CoolSMS](http://coolsms.com/)
-* [Sendega](http://sendega.com/)
+* [Cellular::Backends::CoolSMS](http://coolsms.com/)
+* [Cellular::Backends::Sendega](http://sendega.com/)
+* [Cellular::Backends::Twilio](http://twilio.com/)
 * Log (logs to `$stdout`)
 * Test (adds messages to `Cellular.deliveries`)
 
@@ -60,7 +61,7 @@ The options supported may differ between backends.
 
 ```ruby
 sms = Cellular::SMS.new(
-  recipient: '47xxxxxxxx',
+  recipient: '+47xxxxxxxx',
   sender: 'Custom sender',
   message: 'This is an SMS message',
   price: 0,
@@ -73,7 +74,7 @@ For use with multiple recipients in one request use:
 
 ```ruby
 sms = Cellular::SMS.new(
-  recipients: ['47xxxxxxx1','47xxxxxxx2','47xxxxxxx3'],
+  recipients: ['+47xxxxxxx1','+47xxxxxxx2','+47xxxxxxx3'],
   sender: 'Custom sender',
   message: 'This is an SMS message',
   price: 0,
@@ -92,7 +93,7 @@ and are concerned that it might time out or something. To use it, just call
 
 ```ruby
 sms = Cellular::SMS.new(
-  recipient: '47xxxxxxxx',
+  recipient: '+47xxxxxxxx',
   sender: 'Custom sender',
   message: 'This is an SMS message'
 )
@@ -113,13 +114,20 @@ Just call `deliver_async(wait_until: timestamp)` or `deliver_async(wait: time)` 
 
 ```ruby
 sms = Cellular::SMS.new(
-  recipient: '47xxxxxxxx',
+  recipient: '+47xxxxxxxx',
   sender: 'Custom sender',
   message: 'This is an SMS message'
 )
 
 sms.deliver_async(wait_until: Date.tomorrow.noon)
 ```
+
+## Troubleshooting
+
+If you are using Twilio as backend, please make sure you add or (port)[https://www.twilio.com/help/faq/porting] a phone number to your account so, that you can use that as a sender. You won't be able to send messages from any phone number unless you port it to Twilio. 
+
+Also, make sure phone numbers are in valid international format: 
+[`+47xxxxxx`, `+370xxxxx`]
 
 ## Contributing
 
