@@ -5,12 +5,14 @@ describe Cellular::Backends::Twilio do
   let(:recipient) { '+47xxxxxxxx' }
   let(:sender)    { 'Custom sender' }
   let(:message)   { 'This is an SMS message' }
+  let(:price)   { 0.001 }
 
   let(:options) {
     {
       recipient: recipient,
       sender: sender,
-      message: message
+      message: message,
+      price: price
     }
   }
 
@@ -23,9 +25,10 @@ describe Cellular::Backends::Twilio do
 
   let(:payload) {
     {
-      from: sender,
-      to: recipient,
-      body: message
+      From: sender,
+      To: recipient,
+      Body: message,
+      MaxPrice: price
     }
   }
 
@@ -42,8 +45,8 @@ describe Cellular::Backends::Twilio do
     it 'should return the config for twilio' do
       expect(described_class.twilio_config).to eq(
         {
-          username: Cellular.config.username,
-          password: Cellular.config.password
+          username: 'account_sid',
+          password: 'auth_token'
         })
     end
   end
