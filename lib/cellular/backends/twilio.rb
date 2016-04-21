@@ -18,8 +18,8 @@ module Cellular
 
       def self.deliver(options = {})
         request_queue = {}
-
         recipients_batch(options).each_with_index do |recipient, index|
+          options[:batch] = recipient
           result = HTTParty.post(
             "#{API_URL}/Accounts/#{twilio_config[:username]}/Messages",
             body: payload(options),
