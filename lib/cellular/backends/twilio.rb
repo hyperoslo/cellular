@@ -7,7 +7,6 @@ module Cellular
       API_VERSION = '2010-04-01'
       BASE_URL = 'https://api.twilio.com/'
       API_URL = BASE_URL + API_VERSION
-      SMS_URL = API_URL + "/Accounts/#{Cellular.config.username}/Messages"
 
       HTTP_HEADERS = {
         'Accept' => 'application/json',
@@ -22,13 +21,11 @@ module Cellular
         recipients_batch(options).each_with_index do |recipient, index|
           options[:batch] = recipient
           request = HTTParty.post(
-            SMS_URL,
+            sms_url,
             body: payload(options),
             basic_auth: twilio_config,
             headers: HTTP_HEADERS
           )
-
-          puts request.request.path.to_s
 
           request_queue[index] = {
             recipient: options[:batch],
@@ -42,11 +39,14 @@ module Cellular
 
       def self.parse_response(response)
         [
-          response.message,
-          response.parsed_response
+          response.code,
+          response.message
         ]
       end
 
+      def self.sms_url
+        "#{API_URL}/Accounts/#{twilio_config[:username]}/Messages"
+      end
 
       def self.twilio_config
         {
