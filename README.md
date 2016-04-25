@@ -132,10 +132,12 @@ Also, make sure phone numbers are in valid international format:
 ## Contributing
 
 1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create pull request
+2. Create your feature branch (`git checkout -b feature/my-new-feature`)
+3. Write your code and necessary tests 
+4. Run your tests (`bundle exec rspec`)
+5. Commit your changes (`git commit -am 'Add some feature'`)
+6. Push to the branch (`git push origin feature/my-new-feature`)
+7. Create pull request and be awesome!
 
 
 ## Credits
