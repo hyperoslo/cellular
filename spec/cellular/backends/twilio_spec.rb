@@ -43,8 +43,6 @@ describe Cellular::Backends::Twilio do
   describe '::deliver' do
     before do
       stub_request(:post, "https://account_sid:auth_token@api.twilio.com/2010-04-01/Accounts/account_sid/Messages").
-       with(:body => "From=%2B15005550006&To=%2B15005550004&Body=This%20is%20an%20SMS%20message&MaxPrice=0.001",
-            :headers => {'Accept'=>'application/json', 'Accept-Charset'=>'utf-8', 'User-Agent'=>'cellular/2.0.0 (ruby/x86_64-darwin15 2.3.0-p0)'}).
        to_return(:status => [201, "CREATED"], :body => fixture('backends/twilio/success.json'), :headers => {'Content-Type' => 'application/json'})
     end
 
@@ -67,8 +65,6 @@ describe Cellular::Backends::Twilio do
     context 'when not successful' do
       before do
         stub_request(:post, "https://account_sid:auth_token@api.twilio.com/2010-04-01/Accounts/account_sid/Messages").
-          with(:body => "From=%2B15005550006&To=%2B15005550004&Body=This%20is%20an%20SMS%20message&MaxPrice=0.001",
-            :headers => {'Accept'=>'application/json', 'Accept-Charset'=>'utf-8', 'User-Agent'=>'cellular/2.0.0 (ruby/x86_64-darwin15 2.3.0-p0)'}).
           to_return(:status => [400, "BAD REQUEST"], :body => fixture('backends/twilio/failure.json'), :headers => {'Content-Type' => 'application/json'})
       end
 
