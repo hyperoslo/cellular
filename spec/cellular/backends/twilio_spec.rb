@@ -6,8 +6,6 @@ describe Cellular::Backends::Twilio do
   let(:sender)    { '+15005550006' }
   let(:message)   { 'This is an SMS message' }
   let(:price)   { 0.001 }
-  let(:account_sid) { 'AC800d5bd49542346c71674b49851a1bbf' }
-  let(:auth_token) { 'abe0494797c9323b534139c5ff46dcfe' }
 
   let(:options) {
     {
@@ -88,10 +86,32 @@ describe Cellular::Backends::Twilio do
     end
   end
 
+  describe '::sms_url' do
+    it 'should return the full sms gateway url' do
+      expect(described_class.sms_url).to eq(
+        "https://api.twilio.com/2010-04-01/Accounts/account_sid/Messages"
+      )
+    end
+  end
+
   describe '::payload' do
     it 'returns the payload' do
       options[:batch] = recipient
       expect(described_class.payload(options)).to eq(payload)
+    end
+  end
+
+  describe '::parse_response' do
+    before do
+      subject { Object.new }
+    end
+
+    it 'should return the correct response' do
+      message = [201, 'CREATED']
+      subject.stub(:code).and_return(201)
+      subject.stub(:message).and_return('CREATED')
+
+      expect(described_class.parse_response(subject)).to eq(message)
     end
   end
 
@@ -105,5 +125,4 @@ describe Cellular::Backends::Twilio do
         .to eq([recipient,recipient])
     end
   end
-
 end
