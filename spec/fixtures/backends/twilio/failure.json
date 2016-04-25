@@ -1,0 +1,10 @@
+{
+  "TwilioResponse": {
+    "RestException": {
+      "Code": "21211",
+      "Message": "The 'To' number +4475703596201 is not a valid phone number.",
+      "MoreInfo": "https://www.twilio.com/docs/errors/21211",
+      "Status": "400"
+    }
+  }
+}
