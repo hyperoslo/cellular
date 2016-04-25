@@ -52,7 +52,7 @@ describe Cellular::Backends::Twilio do
     end
 
     context 'when successful' do
-      it 'returns success and a message' do
+      it 'returns status code and a message' do
         expect(described_class.deliver(options)).to eq([
           201,
           'CREATED'
@@ -66,7 +66,7 @@ describe Cellular::Backends::Twilio do
           to_return(:status => [400, "BAD REQUEST"], :body => fixture('backends/twilio/failure.json'), :headers => {'Content-Type' => 'application/json'})
       end
 
-      it 'returns failure and a message' do
+      it 'returns status code and a message' do
         expect(described_class.deliver(options)).to eq([
           400,
           'BAD REQUEST'
@@ -106,12 +106,32 @@ describe Cellular::Backends::Twilio do
       subject { Object.new }
     end
 
-    it 'should return the correct response' do
-      message = [201, 'CREATED']
-      subject.stub(:code).and_return(201)
-      subject.stub(:message).and_return('CREATED')
+    context 'when not successful' do
+      it 'should return the formatted success response' do
+        subject.stub(:code).and_return(201)
+        subject.stub(:message).and_return('CREATED')
 
-      expect(described_class.parse_response(subject)).to eq(message)
+        expect(described_class.parse_response(subject)).to eq(
+          [
+            201,
+            'CREATED'
+          ]
+        )
+      end
+    end
+
+    context 'when not successful' do
+      it 'should return the formatted failed response' do
+        subject.stub(:code).and_return(400)
+        subject.stub(:message).and_return('BAD REQUEST')
+
+        expect(described_class.parse_response(subject)).to eq(
+          [
+            400,
+            'BAD REQUEST'
+          ]
+        )
+      end
     end
   end
 
