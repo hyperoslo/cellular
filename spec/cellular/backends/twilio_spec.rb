@@ -40,7 +40,7 @@ describe Cellular::Backends::Twilio do
         )
     end
 
-    it 'does uses HTTParty to deliver an SMS' do
+    it 'uses HTTParty to deliver an SMS' do
       expect(HTTParty).to receive(:post).with(
         described_class.sms_url,
         body: payload,
@@ -52,7 +52,7 @@ describe Cellular::Backends::Twilio do
     end
 
     context 'when successful' do
-      it 'does return a status code and message' do
+      it 'returns a status code and message' do
         expect(described_class.deliver(options)).to eq [
           201,
           'CREATED'
@@ -70,7 +70,7 @@ describe Cellular::Backends::Twilio do
           )
       end
 
-      it 'does return a status code and message' do
+      it 'returns a status code and message' do
         expect(described_class.deliver(options)).to eq [
           400,
           'BAD REQUEST'
@@ -80,7 +80,7 @@ describe Cellular::Backends::Twilio do
   end
 
   describe '::twilio_config' do
-    it 'does return the config for twilio' do
+    it 'returns the config for twilio' do
       expect(described_class.twilio_config).to eq(
         username: 'account_sid',
         password: 'auth_token'
@@ -89,7 +89,7 @@ describe Cellular::Backends::Twilio do
   end
 
   describe '::sms_url' do
-    it 'does return the full sms gateway url' do
+    it 'returns the full sms gateway url' do
       expect(described_class.sms_url).to eq(
         'https://api.twilio.com/2010-04-01/Accounts/account_sid/Messages'
       )
@@ -97,7 +97,7 @@ describe Cellular::Backends::Twilio do
   end
 
   describe '::payload' do
-    it 'does return the request payload' do
+    it 'returns the request payload' do
       options[:batch] = recipient
       expect(described_class.payload(options)).to eq(payload)
     end
@@ -109,7 +109,7 @@ describe Cellular::Backends::Twilio do
     end
 
     context 'when not successful' do
-      it 'does return the formatted success response' do
+      it 'returns the formatted success response' do
         subject.stub(:code).and_return(201)
         subject.stub(:message).and_return('CREATED')
 
@@ -123,7 +123,7 @@ describe Cellular::Backends::Twilio do
     end
 
     context 'when not successful' do
-      it 'does return the formatted failed response' do
+      it 'returns the formatted failed response' do
         subject.stub(:code).and_return(400)
         subject.stub(:message).and_return('BAD REQUEST')
 
@@ -138,12 +138,12 @@ describe Cellular::Backends::Twilio do
   end
 
   describe '::recipients_batch' do
-    it 'does wrap recipient option into a array' do
+    it 'wraps recipient option into an array' do
       result = described_class.recipients_batch(recipient: recipient)
       expect(result).to eq [recipient]
     end
 
-    it 'does return recipients option as it is' do
+    it 'return recipients option as-is' do
       result = described_class.recipients_batch(
         recipients: [recipient, recipient]
       )
