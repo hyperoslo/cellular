@@ -1,11 +1,12 @@
 module Cellular
   module Backends
+    # Base class for a Cellular backend
     class Backend
-      def self.deliver(options = {})
+      def self.deliver(_options = {})
         raise NotImplementedError
       end
 
-      def self.receive(data)
+      def self.receive(_data)
         raise NotImplementedError
       end
     end

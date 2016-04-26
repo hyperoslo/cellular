@@ -4,6 +4,7 @@ require 'cellular/models/sms'
 require 'cellular/backends'
 require 'cellular/jobs'
 
+# Sending and receiving SMSs through pluggable backends
 module Cellular
   autoload :Logger, 'cellular/logger'
 
@@ -21,5 +22,4 @@ module Cellular
       @config ||= Configuration.new
     end
   end
-
 end

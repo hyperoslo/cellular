@@ -1,21 +1,11 @@
 require 'spec_helper'
 
 describe Cellular::Backends::Test do
-
   let(:recipient) { '47xxxxxxxx' }
   let(:sender)    { 'Custom sender' }
   let(:message)   { 'This is an SMS message' }
   let(:price)     { 100 }
-  let(:country)   { 'NO '}
-
-  let(:options) {
-    {
-      recipient: recipient,
-      sender: sender,
-      message: message,
-      price: price
-    }
-  }
+  let(:country)   { 'NO ' }
 
   before do
     Cellular.config.username = 'username'
@@ -49,5 +39,4 @@ describe Cellular::Backends::Test do
       end.to raise_error NotImplementedError
     end
   end
-
 end

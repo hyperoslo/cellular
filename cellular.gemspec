@@ -10,12 +10,12 @@ Gem::Specification.new do |gem|
   gem.version       = Cellular::VERSION
   gem.authors       = ['Sindre Moen', 'Tim Kurvers']
   gem.email         = ['ruby@hyper.no']
-  gem.description   = %q{Sending and receiving SMSs through pluggable backends}
-  gem.summary       = %q{Sending and receiving SMSs through pluggable backends}
+  gem.description   = 'Sending and receiving SMSs through pluggable backends'
+  gem.summary       = 'Sending and receiving SMSs through pluggable backends'
   gem.homepage      = ''
 
   gem.files         = `git ls-files`.split($/)
-  gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
+  gem.executables   = gem.files.grep(%r{^bin/}).map { |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ['lib']
 

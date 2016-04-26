@@ -1,12 +1,11 @@
 require 'spec_helper'
 
 describe Cellular::SMS do
-
   let(:recipient)    { '47xxxxxxxx' }
   let(:sender)       { 'Custom sender' }
   let(:message)      { 'This is an SMS message' }
   let(:price)        { 100 }
-  let(:country_code) { 'NO'}
+  let(:country_code) { 'NO' }
   let(:recipients)   { nil }
 
   subject do
@@ -25,11 +24,11 @@ describe Cellular::SMS do
   end
 
   describe '#initialize' do
-    it{ expect(subject.recipient).to eq recipient }
-    it{ expect(subject.sender).to eq sender }
-    it{ expect(subject.message).to eq message }
-    it{ expect(subject.price).to eq price }
-    it{ expect(subject.country_code).to eq country_code }
+    it { expect(subject.recipient).to eq recipient }
+    it { expect(subject.sender).to eq sender }
+    it { expect(subject.message).to eq message }
+    it { expect(subject.price).to eq price }
+    it { expect(subject.country_code).to eq country_code }
 
     it { should_not be_delivered }
 
@@ -39,7 +38,7 @@ describe Cellular::SMS do
       end
 
       subject { described_class.new }
-      it{ expect(subject.sender).to eq 'Hyper' }
+      it { expect(subject.sender).to eq 'Hyper' }
     end
 
     context 'when price omitted' do
@@ -49,7 +48,7 @@ describe Cellular::SMS do
 
       subject { described_class.new }
 
-      it{ expect(subject.price).to be 5 }
+      it { expect(subject.price).to be 5 }
     end
 
     context 'when country omitted' do
@@ -58,7 +57,7 @@ describe Cellular::SMS do
       end
 
       subject { described_class.new }
-      it{ expect(subject.country_code).to eq 'NL'}
+      it { expect(subject.country_code).to eq 'NL' }
     end
   end
 
@@ -80,11 +79,11 @@ describe Cellular::SMS do
     end
   end
 
-  describe "#deliver_async" do
-    it "makes ActiveJob schedule an SMS job" do
+  describe '#deliver_async' do
+    it 'makes ActiveJob schedule an SMS job' do
       sms_options = {
-        receiver: "12345678",
-        message: "Test SMS"
+        receiver: '12345678',
+        message: 'Test SMS'
       }
       wait = 100
 
@@ -94,7 +93,8 @@ describe Cellular::SMS do
 
       sms = Cellular::SMS.new sms_options
 
-      allow(ActiveJob::Base).to receive(:queue_adapter).and_return ActiveJob::QueueAdapters::TestAdapter.new
+      allow(ActiveJob::Base).to receive(:queue_adapter)
+        .and_return ActiveJob::QueueAdapters::TestAdapter.new
       allow(sms).to receive(:options).and_return sms_options
 
       sms.deliver_async(wait: wait)

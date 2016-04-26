@@ -2,17 +2,17 @@ require 'httparty'
 
 module Cellular
   module Backends
+    # Cool SMS backend (http://www.coolsms.com)
     class CoolSMS < Backend
-
       # Documentation: http://www.coolsms.com/support/dokumentation/http-gateway.sms
-      GATEWAY_URL = 'https://sms.coolsmsc.dk/'
+      GATEWAY_URL = 'https://sms.coolsmsc.dk/'.freeze
 
       def self.deliver(options = {})
         request_queue = {}
 
         recipients_batch(options).each_with_index do |recipient, index|
           options[:batch] = recipient
-          result = HTTParty.get(GATEWAY_URL, query: defaults_with(options) )
+          result = HTTParty.get(GATEWAY_URL, query: defaults_with(options))
           request_queue[index] = {
             recipient: recipient,
             response: parse_response(result.parsed_response['smsc'])
@@ -55,7 +55,6 @@ module Cellular
           options[:recipients]
         end
       end
-
     end
   end
 end
