@@ -105,21 +105,21 @@ describe Cellular::Backends::Sendega do
   end
 
   describe '::success_message' do
-    it 'should return this message' do
+    it 'returns this message' do
       expect(described_class.success_message)
         .to eq 'Message is received and is being processed.'
     end
   end
 
   describe '::defaults_with' do
-    it 'should return the whole payload' do
+    it 'returns the whole payload' do
       options[:batch] = recipient
       expect(described_class.defaults_with(options)).to eq(payload)
     end
   end
 
   describe '::savon_config' do
-    it 'should return a hash with config' do
+    it 'returns a configuration hash' do
       expect(described_class.savon_config).to eq(
         username: Cellular.config.username,
         password: Cellular.config.password,
@@ -129,12 +129,12 @@ describe Cellular::Backends::Sendega do
   end
 
   describe '::recipients_batch' do
-    it 'should split recipients into arrays of 100 then join them with ,' do
+    it 'splits recipients into arrays of 100 joined with commas' do
       result = described_class.recipients_batch(recipients: recipients)
       expect(result.length).to eq 3
     end
 
-    it 'should put recipient into one array' do
+    it 'puts recipient into one array' do
       result = described_class.recipients_batch(receipient: recipient)
       expect(result.length).to eq 1
     end

@@ -71,7 +71,7 @@ describe Cellular::Backends::CoolSMS do
   end
 
   describe '::parse_response' do
-    it 'should return the correct response' do
+    it 'returns the correct response' do
       message = ['success', 'The message was sent correctly.']
 
       check = { 'status' => message[0], 'result' => message[1] }
@@ -86,7 +86,7 @@ describe Cellular::Backends::CoolSMS do
   end
 
   describe '::coolsms_config' do
-    it 'should return the config for coolsms' do
+    it 'returns the config for coolsms' do
       expect(described_class.coolsms_config).to eq(
         username: Cellular.config.username,
         password: Cellular.config.password
@@ -95,18 +95,19 @@ describe Cellular::Backends::CoolSMS do
   end
 
   describe '::defaults_with' do
-    it 'should return the whole query' do
+    it 'returns the whole query' do
       options[:batch] = recipient
       expect(described_class.defaults_with(options)).to eq(payload)
     end
   end
 
   describe '::recipients_batch' do
-    it 'should wrap recipient option into a array' do
+    it 'wraps recipient option into an array' do
       result = described_class.recipients_batch(recipient: recipient)
       expect(result).to eq([recipient])
     end
-    it 'should return recipients option as it is' do
+
+    it 'returns recipients option as-is' do
       result = described_class.recipients_batch(
         recipients: [recipient, recipient]
       )
