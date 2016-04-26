@@ -1,36 +1,28 @@
 require 'spec_helper'
 
 describe Cellular::Backends::Twilio do
-
   let(:recipient) { '+15005550004' }
   let(:sender)    { '+15005550006' }
   let(:message)   { 'This is an SMS message' }
   let(:price)   { 0.001 }
 
-  let(:options) {
+  let(:options) do
     {
       recipient: recipient,
       sender: sender,
       message: message,
       price: price
     }
-  }
+  end
 
-  let(:auth) {
-    {
-      username: 'account_sid',
-      password: 'auth_token'
-    }
-  }
-
-  let(:payload) {
+  let(:payload) do
     {
       From: sender,
       To: recipient,
       Body: message,
       MaxPrice: price
     }
-  }
+  end
 
   before do
     Cellular.config.username = 'account_sid'
@@ -40,56 +32,66 @@ describe Cellular::Backends::Twilio do
 
   describe '::deliver' do
     before do
-      stub_request(:post, "https://account_sid:auth_token@api.twilio.com/2010-04-01/Accounts/account_sid/Messages").
-       to_return(:status => [201, "CREATED"], :body => fixture('backends/twilio/success.json'), :headers => {'Content-Type' => 'application/json'})
+      stub_request(:post, 'https://account_sid:auth_token@api.twilio.com/2010-04-01/Accounts/account_sid/Messages')
+        .to_return(
+          status: [201, 'CREATED'],
+          body: fixture('backends/twilio/success.json'),
+          headers: { 'Content-Type' => 'application/json' }
+        )
     end
 
     it 'does uses HTTParty to deliver an SMS' do
-      expect(HTTParty).to receive(:post).with(described_class::sms_url, body:
-        payload, headers: described_class::HTTP_HEADERS, basic_auth: described_class::twilio_config).and_call_original
+      expect(HTTParty).to receive(:post).with(
+        described_class.sms_url,
+        body: payload,
+        headers: described_class::HTTP_HEADERS,
+        basic_auth: described_class.twilio_config
+      ).and_call_original
 
       described_class.deliver(options)
     end
 
     context 'when successful' do
       it 'does return a status code and message' do
-        expect(described_class.deliver(options)).to eq([
+        expect(described_class.deliver(options)).to eq [
           201,
           'CREATED'
-        ])
+        ]
       end
     end
 
     context 'when not successful' do
       before do
-        stub_request(:post, "https://account_sid:auth_token@api.twilio.com/2010-04-01/Accounts/account_sid/Messages").
-          to_return(:status => [400, "BAD REQUEST"], :body => fixture('backends/twilio/failure.json'), :headers => {'Content-Type' => 'application/json'})
+        stub_request(:post, 'https://account_sid:auth_token@api.twilio.com/2010-04-01/Accounts/account_sid/Messages')
+          .to_return(
+            status: [400, 'BAD REQUEST'],
+            body: fixture('backends/twilio/failure.json'),
+            headers: { 'Content-Type' => 'application/json' }
+          )
       end
 
       it 'does return a status code and message' do
-        expect(described_class.deliver(options)).to eq([
+        expect(described_class.deliver(options)).to eq [
           400,
           'BAD REQUEST'
-        ])
+        ]
       end
     end
-
   end
 
   describe '::twilio_config' do
     it 'does return the config for twilio' do
       expect(described_class.twilio_config).to eq(
-        {
-          username: 'account_sid',
-          password: 'auth_token'
-        })
+        username: 'account_sid',
+        password: 'auth_token'
+      )
     end
   end
 
   describe '::sms_url' do
     it 'does return the full sms gateway url' do
       expect(described_class.sms_url).to eq(
-        "https://api.twilio.com/2010-04-01/Accounts/account_sid/Messages"
+        'https://api.twilio.com/2010-04-01/Accounts/account_sid/Messages'
       )
     end
   end
@@ -137,12 +139,15 @@ describe Cellular::Backends::Twilio do
 
   describe '::recipients_batch' do
     it 'does wrap recipient option into a array' do
-      expect(described_class.recipients_batch({recipient: recipient}))
-        .to eq([recipient])
+      result = described_class.recipients_batch(recipient: recipient)
+      expect(result).to eq [recipient]
     end
+
     it 'does return recipients option as it is' do
-      expect(described_class.recipients_batch({recipients: [recipient,recipient]}))
-        .to eq([recipient,recipient])
+      result = described_class.recipients_batch(
+        recipients: [recipient, recipient]
+      )
+      expect(result).to eq [recipient, recipient]
     end
   end
 end

@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Cellular::Configuration do
-
   it { should respond_to :username= }
   it { should respond_to :username }
   it { should respond_to :password= }
@@ -17,8 +16,7 @@ describe Cellular::Configuration do
   it { should respond_to :country_code }
   it { should respond_to :sender= }
   it { should respond_to :sender }
-  
+
   it { should respond_to :logger= }
   it { should respond_to :logger }
-
 end

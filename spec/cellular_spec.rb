@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Cellular do
-
   describe '::config' do
     it 'creates a new configuration if none exists' do
       described_class.config = nil
@@ -24,5 +23,4 @@ describe Cellular do
       expect(described_class.config.username).to eq 'username'
     end
   end
-
 end

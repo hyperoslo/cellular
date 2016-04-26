@@ -2,10 +2,11 @@ require 'httparty'
 
 module Cellular
   module Backends
+    # Twilio backend (https://www.twilio.com)
     class Twilio < Backend
       # Documentation: https://www.twilio.com/docs/api/rest
-      API_VERSION = '2010-04-01'
-      BASE_URL = 'https://api.twilio.com/'
+      API_VERSION = '2010-04-01'.freeze
+      BASE_URL = 'https://api.twilio.com/'.freeze
       API_URL = BASE_URL + API_VERSION
 
       HTTP_HEADERS = {
@@ -14,7 +15,7 @@ module Cellular
         'User-Agent' => "cellular/#{Cellular::VERSION}" \
         " (#{RUBY_ENGINE}/#{RUBY_PLATFORM}" \
         " #{RUBY_VERSION}-p#{RUBY_PATCHLEVEL})"
-      }
+      }.freeze
 
       def self.deliver(options = {})
         request_queue = {}
@@ -71,7 +72,6 @@ module Cellular
           options[:recipients]
         end
       end
-
     end
   end
 end

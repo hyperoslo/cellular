@@ -1,4 +1,5 @@
 module Cellular
+  # Encapsulates all available backends for Cellular
   module Backends
     autoload :Backend, 'cellular/backends/backend'
     autoload :CoolSMS, 'cellular/backends/cool_sms'

@@ -2,9 +2,9 @@ require 'savon'
 
 module Cellular
   module Backends
+    # Sendega backend (http://sendega.com)
     class Sendega < Backend
-
-      GATEWAY_URL = 'https://smsc.sendega.com/Content.asmx?WSDL'
+      GATEWAY_URL = 'https://smsc.sendega.com/Content.asmx?WSDL'.freeze
 
       def self.deliver(options = {}, savon_options = {})
         # Send an SMS and return its initial delivery status code.
@@ -45,7 +45,7 @@ module Cellular
           request_queue[index] = {
             batch: batch,
             result: result,
-            body:result.body[:send_response][:send_result],
+            body: result.body[:send_response][:send_result],
             response: map_response(result.body[:send_response][:send_result])
           }
         end
@@ -54,20 +54,20 @@ module Cellular
         request_queue[0][:response]
       end
 
-      def self.receive(data)
+      def self.receive(_data)
         raise NotImplementedError
       end
 
       def self.savon_config
         {
-           username: Cellular.config.username,
-           password: Cellular.config.password,
-           dlrUrl: Cellular.config.delivery_url
+          username: Cellular.config.username,
+          password: Cellular.config.password,
+          dlrUrl: Cellular.config.delivery_url
         }
       end
 
       def self.defaults_with(options)
-       {
+        {
           sender: options[:sender],
           destination: options[:batch],
           pricegroup: options[:price] || 0, # default price to 0
@@ -85,9 +85,9 @@ module Cellular
         }.merge!(savon_config)
       end
 
-      def self.map_response(_body)
-        msg = _body[:success] ?  success_message : _body[:error_message]
-        [ _body[:error_number].to_i, msg ]
+      def self.map_response(body)
+        msg = body[:success] ? success_message : body[:error_message]
+        [body[:error_number].to_i, msg]
       end
 
       def self.success_message
@@ -98,10 +98,9 @@ module Cellular
         if options[:recipients].blank?
           [options[:recipient]]
         else
-          options[:recipients].each_slice(100).to_a.map{|x| x.join(',') }
+          options[:recipients].each_slice(100).to_a.map { |x| x.join(',') }
         end
       end
-
     end
   end
 end

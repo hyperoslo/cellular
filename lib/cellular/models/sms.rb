@@ -1,10 +1,11 @@
 require 'active_support/time'
 
 module Cellular
+  # Represents an SMS
   class SMS
-
     attr_accessor :recipient, :sender, :message, :price, :country_code
     attr_accessor :recipients, :delivery_status, :delivery_message
+
     def initialize(options = {})
       @backend = Cellular.config.backend
 
@@ -24,15 +25,17 @@ module Cellular
     end
 
     def deliver_async(delivery_options = {})
-      Cellular::Jobs::AsyncMessenger.set(delivery_options).perform_later(options)
+      Cellular::Jobs::AsyncMessenger.set(delivery_options)
+                                    .perform_later(options)
     end
+
     alias_method :deliver_later, :deliver_async
 
-    def save(options = {})
+    def save(_options = {})
       raise NotImplementedError
     end
 
-    def receive(options = {})
+    def receive(_options = {})
       raise NotImplementedError
     end
 
@@ -52,6 +55,5 @@ module Cellular
         country_code: @country_code
       }
     end
-
   end
 end

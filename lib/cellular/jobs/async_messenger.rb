@@ -1,5 +1,6 @@
 require 'active_job'
 
+# Delivers SMSs asynchronously through ActiveJob
 class Cellular::Jobs::AsyncMessenger < ActiveJob::Base
   queue_as :cellular
 
