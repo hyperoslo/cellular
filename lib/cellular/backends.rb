@@ -4,9 +4,9 @@ module Cellular
     autoload :Backend, 'cellular/backends/backend'
     autoload :CoolSMS, 'cellular/backends/cool_sms'
     autoload :Sendega, 'cellular/backends/sendega'
-    autoload :Twilio,  'cellular/backends/twilio'
-    autoload :LinkMobility,  'cellular/backends/link_mobility'
-    autoload :Log,     'cellular/backends/log'
-    autoload :Test,    'cellular/backends/test'
+    autoload :Twilio, 'cellular/backends/twilio'
+    autoload :LinkMobility, 'cellular/backends/link_mobility'
+    autoload :Log, 'cellular/backends/log'
+    autoload :Test, 'cellular/backends/test'
   end
 end
