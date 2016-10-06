@@ -19,9 +19,9 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ['lib']
 
-  gem.add_dependency 'httparty', '~> 0.13.0'
+  gem.add_dependency 'httparty', '~> 0.13'
   gem.add_dependency 'savon',    '~> 2.0'
-  gem.add_dependency 'rails',    '>= 4.2'
+  gem.add_dependency 'rails',    '~> 4.2'
 
   gem.add_development_dependency 'pry', '~> 0.10'
 
