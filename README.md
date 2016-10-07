@@ -51,6 +51,7 @@ interface to interact with queue backends. Read appropriate documentation to set
 * [Cellular::Backends::CoolSMS](http://coolsms.com/)
 * [Cellular::Backends::Sendega](http://sendega.com/)
 * [Cellular::Backends::Twilio](http://twilio.com/)
+* [Cellular::Backends::LinkMobility](https://www.linkmobility.com)
 * Log (logs to `$stdout`)
 * Test (adds messages to `Cellular.deliveries`)
 
@@ -124,16 +125,16 @@ sms.deliver_async(wait_until: Date.tomorrow.noon)
 
 ## Troubleshooting
 
-If you are using Twilio as a backend, please make sure you add or (port)[https://www.twilio.com/help/faq/porting] a phone number to your account so, that you can use that as a sender option. You won't be able to send messages from any phone number unless you port it to Twilio. 
+If you are using Twilio as a backend, please make sure you add or (port)[https://www.twilio.com/help/faq/porting] a phone number to your account so, that you can use that as a sender option. You won't be able to send messages from any phone number unless you port it to Twilio.
 
-Also, make sure phone numbers are in valid international format: 
+Also, make sure phone numbers are in valid international format:
 [`+47xxxxxx`, `+370xxxxx`]
 
 ## Contributing
 
 1. Fork it
 2. Create your feature branch (`git checkout -b feature/my-new-feature`)
-3. Write your code and necessary tests 
+3. Write your code and necessary tests
 4. Run your tests (`bundle exec rspec`)
 5. Commit your changes (`git commit -am 'Add some feature'`)
 6. Push to the branch (`git push origin feature/my-new-feature`)
