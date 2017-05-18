@@ -11,10 +11,11 @@ Gem::Specification.new do |gem|
   gem.authors       = ['Sindre Moen', 'Tim Kurvers']
   gem.email         = ['ruby@hyper.no']
   gem.description   = 'Sending and receiving SMSs through pluggable backends'
-  gem.summary       = 'Sending and receiving SMSs through pluggable backends'
-  gem.homepage      = ''
+  gem.summary       = gem.description
+  gem.homepage      = 'https://github.com/hyperoslo/cellular'
 
   gem.files         = `git ls-files`.split($/)
+  gem.bindir        = 'exe'
   gem.executables   = gem.files.grep(%r{^exe/}).map { |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ['lib']
