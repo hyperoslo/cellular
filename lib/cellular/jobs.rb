@@ -1,8 +1,3 @@
-begin
-  require 'sidekiq'
-rescue LoadError
-end
-
 module Cellular
   # Encapsulates all background job implementations
   module Jobs
