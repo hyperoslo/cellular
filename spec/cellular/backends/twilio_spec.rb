@@ -32,7 +32,8 @@ describe Cellular::Backends::Twilio do
 
   describe '::deliver' do
     before do
-      stub_request(:post, 'https://account_sid:auth_token@api.twilio.com/2010-04-01/Accounts/account_sid/Messages')
+      stub_request(:post, 'https://api.twilio.com/2010-04-01/Accounts/account_sid/Messages')
+        .with(basic_auth: ['account_sid', 'auth_token'])
         .to_return(
           status: [201, 'CREATED'],
           body: fixture('backends/twilio/success.json'),
@@ -62,7 +63,8 @@ describe Cellular::Backends::Twilio do
 
     context 'when not successful' do
       before do
-        stub_request(:post, 'https://account_sid:auth_token@api.twilio.com/2010-04-01/Accounts/account_sid/Messages')
+        stub_request(:post, 'https://api.twilio.com/2010-04-01/Accounts/account_sid/Messages')
+          .with(basic_auth: ['account_sid', 'auth_token'])
           .to_return(
             status: [400, 'BAD REQUEST'],
             body: fixture('backends/twilio/failure.json'),

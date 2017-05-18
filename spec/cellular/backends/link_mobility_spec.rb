@@ -33,7 +33,8 @@ describe Cellular::Backends::LinkMobility do
 
   describe '::deliver' do
     before do
-      stub_request(:post, 'https://username:password@wsx.sp247.net/sms/send')
+      stub_request(:post, 'https://wsx.sp247.net/sms/send')
+        .with(basic_auth: ['username', 'password'])
         .to_return(
           status: [200, 'OK'],
           body: fixture('backends/link_mobility/success.json'),
@@ -62,7 +63,8 @@ describe Cellular::Backends::LinkMobility do
 
     context 'when not successful' do
       before do
-        stub_request(:post, 'https://username:password@wsx.sp247.net/sms/send')
+        stub_request(:post, 'https://wsx.sp247.net/sms/send')
+          .with(basic_auth: ['username', 'password'])
           .to_return(
             status: [403, 'FORBIDDEN'],
             body: fixture('backends/link_mobility/failure.json'),
