@@ -2,4 +2,5 @@ source 'https://rubygems.org'
 
 gemspec path: '../'
 
-gem 'rails', '~> 4.2.8'
+gem 'activejob', '~> 4.2.8'
+gem 'activesupport', '~> 4.2.8'
