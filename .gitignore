@@ -1,4 +1,5 @@
+/.bundle
+/coverage
+/pkg
+/vendor/cache
 Gemfile.lock
-coverage/
-pkg/
-vendor/cache/
