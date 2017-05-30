@@ -4,7 +4,6 @@
 [![Build Status](https://img.shields.io/travis/hyperoslo/cellular.svg?style=flat)](https://travis-ci.org/hyperoslo/cellular)
 [![Dependency Status](https://img.shields.io/gemnasium/hyperoslo/cellular.svg?style=flat)](https://gemnasium.com/hyperoslo/cellular)
 [![Code Climate](https://img.shields.io/codeclimate/github/hyperoslo/cellular.svg?style=flat)](https://codeclimate.com/github/hyperoslo/cellular)
-[![Coverage Status](https://img.shields.io/coveralls/hyperoslo/cellular.svg?style=flat)](https://coveralls.io/r/hyperoslo/cellular)
 
 Sending and receiving SMSs with Ruby through pluggable backends.
 
