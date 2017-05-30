@@ -26,8 +26,9 @@ describe Cellular::Backends::Log do
     let(:deliveries) { Cellular.deliveries }
 
     it 'logs the message' do
-      expect(STDOUT).to receive(:puts)
-      described_class.deliver(options)
+      expect do
+        described_class.deliver(options)
+      end.to output(/#{options[:message]}/).to_stdout
     end
   end
 

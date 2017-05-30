@@ -2,12 +2,9 @@ require 'cellular/version'
 require 'cellular/configuration'
 require 'cellular/models/sms'
 require 'cellular/backends'
-require 'cellular/jobs'
 
 # Sending and receiving SMSs through pluggable backends
 module Cellular
-  autoload :Logger, 'cellular/logger'
-
   @deliveries = []
 
   class << self

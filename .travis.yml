@@ -5,11 +5,4 @@ rvm:
   - 2.3
   - 2.4
 gemfile:
-  - gemfiles/rails-4.2.gemfile
-  - gemfiles/rails-5.0.gemfile
-  - gemfiles/edge.gemfile
   - Gemfile
-matrix:
-  allow_failures:
-    - gemfile: gemfiles/edge.gemfile
-  fast_finish: true

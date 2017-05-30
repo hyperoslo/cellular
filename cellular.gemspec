@@ -23,10 +23,6 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'httparty', '~> 0.13'
   gem.add_dependency 'savon',    '~> 2.0'
 
-  # FIXME: Move us to development dependencies.
-  gem.add_dependency 'activejob', '>= 4.2'
-  gem.add_dependency 'activesupport', '>= 4.2'
-
   gem.add_development_dependency 'rake', '~> 12.0'
   gem.add_development_dependency 'rspec', '~> 3.6'
   gem.add_development_dependency 'webmock', '~> 2.3'

@@ -1,3 +1,5 @@
+require 'bundler/setup'
+
 require 'webmock/rspec'
 
 require 'cellular'

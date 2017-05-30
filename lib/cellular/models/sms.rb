@@ -1,5 +1,3 @@
-require 'active_support/time'
-
 module Cellular
   # Represents an SMS
   class SMS
@@ -23,13 +21,6 @@ module Cellular
       @delivery_status, @delivery_message = @backend.deliver options
       @delivered = true
     end
-
-    def deliver_async(delivery_options = {})
-      Cellular::Jobs::AsyncMessenger.set(delivery_options)
-                                    .perform_later(options)
-    end
-
-    alias_method :deliver_later, :deliver_async
 
     def save(_options = {})
       raise NotImplementedError

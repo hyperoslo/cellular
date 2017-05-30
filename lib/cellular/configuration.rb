@@ -1,3 +1,5 @@
+require 'logger'
+
 module Cellular
   # Configuration for Cellular
   class Configuration
@@ -6,7 +8,7 @@ module Cellular
     attr_accessor :logger
 
     def logger
-      @logger ||= Object.const_defined?(:Rails) ? Rails.logger : Logger.new
+      @logger ||= Logger.new($stdout)
     end
   end
 end
