@@ -17,16 +17,21 @@ Licensed under the **MIT** license, see LICENSE for more information.
 
 Add this line to your application's Gemfile:
 
-    gem 'cellular'
+```
+gem 'cellular'
+```
 
 And then execute:
 
-    $ bundle
+```shell
+bundle
+```
 
 Or install it yourself as:
 
-    $ gem install cellular
-
+```shell
+gem install cellular
+```
 
 ## Usage
 
@@ -71,6 +76,7 @@ sms = Cellular::SMS.new(
 
 sms.deliver
 ```
+
 For use with multiple recipients in one request use:
 
 ```ruby
@@ -125,10 +131,10 @@ sms.deliver_async(wait_until: Date.tomorrow.noon)
 
 ## Troubleshooting
 
-If you are using Twilio as a backend, please make sure you add or (port)[https://www.twilio.com/help/faq/porting] a phone number to your account so, that you can use that as a sender option. You won't be able to send messages from any phone number unless you port it to Twilio.
+If you are using Twilio as a backend, please make sure you add or [port](https://www.twilio.com/help/faq/porting) a phone number to your account, so that you can use that as a sender option. You won't be able to send messages from any phone number unless you port it to Twilio.
 
 Also, make sure phone numbers are in valid international format:
-[`+47xxxxxx`, `+370xxxxx`]
+[`+47xxxxxxxx`, `+370xxxxx`]
 
 ## Contributing
 
